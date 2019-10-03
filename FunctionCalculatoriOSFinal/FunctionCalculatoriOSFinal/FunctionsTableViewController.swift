@@ -10,6 +10,12 @@ import UIKit
 
 class FunctionsTableViewController: UITableViewController {
 
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        tabBarItem.title = "Functions"
+        tabBarItem.image = UIImage(named:"function.png")
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 
