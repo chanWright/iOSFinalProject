@@ -63,11 +63,19 @@
 				15423582233E7B58001D6C98 /* Assets.xcassets */,
 				15423584233E7B58001D6C98 /* LaunchScreen.storyboard */,
 				15423587233E7B58001D6C98 /* Info.plist */,
+				3F0D64002346B1A400C156BF /* View Controllers */,
+			);
+			path = FunctionCalculatoriOSFinal;
+			sourceTree = "<group>";
+		};
+		3F0D64002346B1A400C156BF /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
 				3F96548F2346A11800DEB0C4 /* FunctionsTableViewController.swift */,
 				3F9654912346A12100DEB0C4 /* HistoryTableViewController.swift */,
 				3F9654932346A18000DEB0C4 /* CalculationsViewController.swift */,
 			);
-			path = FunctionCalculatoriOSFinal;
+			path = "View Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
