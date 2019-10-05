@@ -15,15 +15,28 @@ class FunctionsTableViewController: UITableViewController {
         super.init(coder: aDecoder)
         tabBarItem.title = "Functions"
         tabBarItem.image = UIImage(named:"function.png")
+
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        //MARK: -THIS NEEDS TO BE FIXED.
+        //      I cannot get this to show up on the table view. It may be in the wrong place or it's written wrong.
+        navigationItem.rightBarButtonItem = self.editButtonItem
+        navigationItem.title = "Functions"
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(edit))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(add))
+    }
+    
+    @objc func edit(){
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue:"Fuctionality not added yet."), object: nil)
+    }
+    
+    @objc func add(){
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue:"Fuctionality not added yet."), object: nil)
     }
 
     // MARK: - Table view data source
@@ -35,7 +48,8 @@ class FunctionsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        //MARK: -Dummy Data.
+        return 1
     }
 
     /*
