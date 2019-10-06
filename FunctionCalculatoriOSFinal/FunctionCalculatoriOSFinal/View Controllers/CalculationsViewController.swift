@@ -10,6 +10,8 @@ import UIKit
 
 class CalculationsViewController: UIViewController {
 
+    var function:functionItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
