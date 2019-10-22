@@ -9,7 +9,6 @@
 import UIKit
 
 class FunctionsTableViewController: UITableViewController {
-
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -17,11 +16,14 @@ class FunctionsTableViewController: UITableViewController {
         tabBarItem.image = UIImage(named:"function.png")
 
     }
+    
+    var group:Groups!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //MARK: -THIS NEEDS TO BE FIXED.
         //      I cannot get this to show up on the table view. It may be in the wrong place or it's written wrong.
-        navigationItem.rightBarButtonItem = self.editButtonItem
+        //navigationItem.rightBarButtonItem = self.editButtonItem
         navigationItem.title = "Functions"
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -44,22 +46,25 @@ class FunctionsTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return Calculator.shared.numberOfGroups()
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         //MARK: -Dummy Data.
-
-        return functionTable.shared.numFunction()
+            return Calculator.shared[section].numOffunctions()
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return Calculator.shared[section].groupName
     }
 
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "functionTable", for: indexPath)
-        let function = functionTable.shared[indexPath.row]
+        let function = Calculator.shared[indexPath.section][indexPath.row]
         
-        cell.textLabel?.text = function.name
+        cell.textLabel?.text = function.functionName
         // Configure the cell...
 
         return cell
@@ -68,25 +73,25 @@ class FunctionsTableViewController: UITableViewController {
     
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-        var calculationVC = storyboard!.instantiateViewController(withIdentifier: "CalculationsViewController") as! CalculationsViewController
+        let calculationVC = storyboard!.instantiateViewController(withIdentifier: "CalculationsViewController") as! CalculationsViewController
         
-        calculationVC.function = functionTable.shared[indexPath.row]
+        calculationVC.function = Calculator.shared[indexPath.section][indexPath.row]
         self.navigationController!.pushViewController(calculationVC, animated: true)
         
     }
     
 
-    /*
+
     // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
+            Calculator.shared[indexPath.section].deleteFunction(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    */
 
     /*
     // Override to support rearranging the table view.
