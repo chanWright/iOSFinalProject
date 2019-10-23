@@ -1,5 +1,5 @@
 //
-//  HistoryModal.swift
+//  HistoryModel.swift
 //  FunctionCalculatoriOSFinal
 //
 //  Created by Student on 10/22/19.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class HistoryModal{
+class HistoryModel{
     private var history:[Functions] = []
     
     private init(history:[Functions]){
@@ -31,11 +31,11 @@ class HistoryModal{
         return history[i]
     }
     
-    private static var _shared:HistoryModal!
+    private static var _shared:HistoryModel!
     
-    static var shared:HistoryModal{
+    static var shared:HistoryModel{
         if _shared == nil{
-            _shared = HistoryModal()
+            _shared = HistoryModel()
         }
         return _shared
     }
