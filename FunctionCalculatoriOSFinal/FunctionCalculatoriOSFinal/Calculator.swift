@@ -37,7 +37,7 @@ class Calculator{
     }
     
     init(){
-        addGroup(group: Groups(groupName: "Maths", functions: [Functions(functionName: "pythagoras Theorem", formula:"A^2 + B^2 = c^2", variables: ["a","b","c"]),Functions(functionName: "subtract", formula: " ", variables: []),Functions(functionName: "minus", formula: " ", variables: []),Functions(functionName: "Division", formula: " ", variables: [])]))
+        addGroup(group: Groups(groupName: "Maths", functions: [Functions(functionName: "Pythagoras Theorem", formula:"A^2 + B^2 = c^2", variables: ["a","b","c"]),Functions(functionName: "Subtract", formula: " ", variables: []),Functions(functionName: "Minus", formula: " ", variables: []),Functions(functionName: "Division", formula: " ", variables: [])]))
         addGroup(group: Groups(groupName: "Physics", functions: [Functions(functionName: "Einstein", formula: " ", variables: []),Functions(functionName: "Franklin", formula: " ", variables: []),Functions(functionName: "Grahambell", formula: " ", variables: [])]))
         addGroup(group: Groups(groupName: "Chemistry", functions: [Functions(functionName: "H20", formula: " ", variables: []),Functions(functionName: "Nacl",formula: " ", variables: []),Functions(functionName: "K20",formula: " ", variables: []),Functions(functionName: "Li",formula: " ", variables: [])]))
         addGroup(group: Groups(groupName: "Mischellenous", functions: [Functions(functionName: "M", formula: " ", variables: []),Functions(functionName: "N", formula: " ", variables: [])]))

@@ -25,7 +25,6 @@ class Function {
         self.formula = formula
         self.function = function
     }
-    // just a convenience so we can access each restaurant's menu more easily
     subscript (i:Int) -> functionItem {
         return function[i]
     }

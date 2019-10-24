@@ -18,6 +18,18 @@ class CalculationsViewController: UIViewController {
     
     @IBOutlet weak var variableCTF: UITextField!
     
+    @IBOutlet weak var variableDTF: UITextField!
+    
+    @IBOutlet weak var variableETF: UITextField!
+    
+    @IBOutlet weak var variableFTF: UITextField!
+    
+    @IBOutlet weak var variableGTF: UITextField!
+    
+    @IBOutlet weak var variableHTF: UITextField!
+    
+    @IBOutlet weak var functionImage: UIImageView!
+    
     @IBAction func reset(_ sender: UIButton) {
         variableATF.text = ""
         variableBTF.text = ""
