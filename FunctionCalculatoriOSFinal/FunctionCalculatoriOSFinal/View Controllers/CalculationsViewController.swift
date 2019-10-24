@@ -30,10 +30,32 @@ class CalculationsViewController: UIViewController {
     
     @IBOutlet weak var functionImage: UIImageView!
     
+    @IBOutlet weak var varALBL: UILabel!
+    
+    @IBOutlet weak var varBLBL: UILabel!
+    
+    @IBOutlet weak var varCLBL: UILabel!
+    
+    @IBOutlet weak var varDLBL: UILabel!
+    
+    @IBOutlet weak var varELBL: UILabel!
+    
+    @IBOutlet weak var varFLBL: UILabel!
+    
+    @IBOutlet weak var varGLBL: UILabel!
+    
+    @IBOutlet weak var varHLBL: UILabel!
+    
     @IBAction func reset(_ sender: UIButton) {
         variableATF.text = ""
         variableBTF.text = ""
         variableCTF.text = ""
+        variableCTF.text = ""
+        variableDTF.text = ""
+        variableETF.text = ""
+        variableFTF.text = ""
+        variableGTF.text = ""
+        variableHTF.text = ""
     }
     
     @IBAction func calculateButton(_ sender: UIButton) {
@@ -87,7 +109,94 @@ class CalculationsViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        functionImage.image = UIImage(named: function.functionName)
+        switch function.variables.count{
+        case 3:
+            self.variableDTF.isHidden = true
+            self.variableETF.isHidden = true
+            self.variableFTF.isHidden = true
+            self.variableGTF.isHidden = true
+            self.variableHTF.isHidden = true
+            
+            self.varDLBL.isHidden = true
+            self.varELBL.isHidden = true
+            self.varFLBL.isHidden = true
+            self.varGLBL.isHidden = true
+            self.varHLBL.isHidden = true
+            
+            varALBL.text = function.variables[0]
+            varBLBL.text = function.variables[1]
+            varCLBL.text = function.variables[2]
+            break
+        case 4:
+            self.variableETF.isHidden = true
+            self.variableFTF.isHidden = true
+            self.variableGTF.isHidden = true
+            self.variableHTF.isHidden = true
+            
+            self.varELBL.isHidden = true
+            self.varFLBL.isHidden = true
+            self.varGLBL.isHidden = true
+            self.varHLBL.isHidden = true
+            
+            varALBL.text = function.variables[0]
+            varBLBL.text = function.variables[1]
+            varCLBL.text = function.variables[2]
+            varDLBL.text = function.variables[3]
+            break
+        case 5:
+            self.variableFTF.isHidden = true
+            self.variableGTF.isHidden = true
+            self.variableHTF.isHidden = true
+            
+            self.varFLBL.isHidden = true
+            self.varGLBL.isHidden = true
+            self.varHLBL.isHidden = true
+            
+            varALBL.text = function.variables[0]
+            varBLBL.text = function.variables[1]
+            varCLBL.text = function.variables[2]
+            varDLBL.text = function.variables[3]
+            varELBL.text = function.variables[4]
+            break
+        case 6:
+            self.variableGTF.isHidden = true
+            self.variableHTF.isHidden = true
+            
+            self.varGLBL.isHidden = true
+            self.varHLBL.isHidden = true
+            
+            varALBL.text = function.variables[0]
+            varBLBL.text = function.variables[1]
+            varCLBL.text = function.variables[2]
+            varDLBL.text = function.variables[3]
+            varELBL.text = function.variables[4]
+            varFLBL.text = function.variables[5]
+            break
+        case 7:
+            self.variableHTF.isHidden = true
+
+            self.varHLBL.isHidden = true
+            
+            varALBL.text = function.variables[0]
+            varBLBL.text = function.variables[1]
+            varCLBL.text = function.variables[2]
+            varDLBL.text = function.variables[3]
+            varELBL.text = function.variables[4]
+            varFLBL.text = function.variables[5]
+            varGLBL.text = function.variables[6]
+            break
+        default:
+            varALBL.text = function.variables[0]
+            varBLBL.text = function.variables[1]
+            varCLBL.text = function.variables[2]
+            varDLBL.text = function.variables[3]
+            varELBL.text = function.variables[4]
+            varFLBL.text = function.variables[5]
+            varGLBL.text = function.variables[6]
+            varHLBL.text = function.variables[7]
+            break
+        }
         // Do any additional setup after loading the view.
     }
     

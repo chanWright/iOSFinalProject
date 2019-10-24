@@ -151,6 +151,14 @@
                     <navigationItem key="navigationItem" id="iOp-0x-FBU"/>
                     <connections>
                         <outlet property="functionImage" destination="GnA-D2-NOH" id="FBh-R0-kjL"/>
+                        <outlet property="varALBL" destination="EXm-2N-bvi" id="AsH-bb-dZ3"/>
+                        <outlet property="varBLBL" destination="Iv0-8W-F1k" id="KuS-cW-eF5"/>
+                        <outlet property="varCLBL" destination="1em-9s-aRj" id="4d7-Ys-RQy"/>
+                        <outlet property="varDLBL" destination="NLm-7t-rHM" id="XHp-Hi-aWe"/>
+                        <outlet property="varELBL" destination="YOJ-vL-0GF" id="Hhm-Ue-78y"/>
+                        <outlet property="varFLBL" destination="OUJ-0k-8dA" id="ghK-fx-TdA"/>
+                        <outlet property="varGLBL" destination="Qf0-Tv-9Sg" id="JOB-JB-4hR"/>
+                        <outlet property="varHLBL" destination="lmG-pW-6O9" id="ooh-DS-eMA"/>
                         <outlet property="variableATF" destination="b6c-Cx-xA9" id="9bj-hB-c2T"/>
                         <outlet property="variableBTF" destination="4k2-UP-Cqm" id="Wgx-Fa-bQB"/>
                         <outlet property="variableCTF" destination="5DU-Of-hF2" id="Asj-gL-Ihw"/>
