@@ -7,8 +7,12 @@
 //
 
 import Foundation
+import CoreData
+import UIKit
+
 
 class HistoryModel{
+    @NSManaged public var values: NSSet?
     private var history:[Functions] = []
     
     private init(history:[Functions]){
@@ -19,7 +23,24 @@ class HistoryModel{
         return history.count
     }
     
-    func addHistory(history:Functions){
+    func addHistory(_ history:Functions){
+        var context:NSManagedObjectContext!
+        var appDelegate:AppDelegate!
+        context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        appDelegate = UIApplication.shared.delegate as? AppDelegate
+        
+        let historyItem = NSEntityDescription.insertNewObject(forEntityName: "History", into: context) as! History
+        historyItem.formula = history.formula
+        historyItem.funcName = history.functionName
+        for variable in history.variables{
+            let variableItem = NSEntityDescription.insertNewObject(forEntityName: "Value", into: context) as! Value
+            variableItem.variable = variable
+//            historyItem.values
+        }
+        
+        
+        appDelegate.saveContext()
+        
         self.history.append(history)
     }
     
