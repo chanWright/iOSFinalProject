@@ -11,7 +11,8 @@ import CoreData
 
 class HistoryTableViewController: UITableViewController {
     
-    var container: NSPersistentContainer!
+    var context:NSManagedObjectContext!
+    var appDelegate:AppDelegate!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -22,14 +23,35 @@ class HistoryTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-    }
-
+        context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        appDelegate = UIApplication.shared.delegate as? AppDelegate
+        
+        
+        }
     // MARK: - Table view data source
     override func viewWillAppear(_ animated: Bool) {
         navigationItem.title = "History"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: nil)
+        fetchHistory()
         tableView.reloadData()
+        
+        
 
+    }
+    func fetchHistory(){
+        //create request
+        let request: NSFetchRequest<History> = NSFetchRequest(entityName: "History")
+        //fetch the data into an array, results - if it failsm the if is skipped
+        if let history = try? context.fetch(request) {
+            for dbitem in history{
+                let tempFunc = Functions(functionName: dbitem.funcName ?? "Error", formula: dbitem.formula ?? "Undefined", variables: dbitem.values)
+                HistoryModel.shared.addHistory(tempFunc)
+                for historyitem in dbitem{
+                    dbitem.values =
+                }
+                
+            }
+        }
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -44,11 +66,9 @@ class HistoryTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "historyTableCell", for: indexPath)
-
         // Configure the cell...
         let history = HistoryModel.shared[indexPath.row]
         cell.textLabel?.text = history.functionName
-
         return cell
     }
  

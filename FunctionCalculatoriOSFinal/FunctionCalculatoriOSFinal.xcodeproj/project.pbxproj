@@ -11,8 +11,8 @@
 		15423581233E7B57001D6C98 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1542357F233E7B57001D6C98 /* Main.storyboard */; };
 		15423583233E7B58001D6C98 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15423582233E7B58001D6C98 /* Assets.xcassets */; };
 		15423586233E7B58001D6C98 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15423584233E7B58001D6C98 /* LaunchScreen.storyboard */; };
-		271DBE96236112A50053F694 /* Database.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 271DBE94236112A50053F694 /* Database.xcdatamodeld */; };
 		27DE2E3C2349613A00D7CD2D /* functionClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DE2E3B2349613A00D7CD2D /* functionClass.swift */; };
+		27DE54CE236357CB00F91E53 /* Database.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 27DE54CC236357CB00F91E53 /* Database.xcdatamodeld */; };
 		3F9654902346A11800DEB0C4 /* FunctionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F96548F2346A11800DEB0C4 /* FunctionsTableViewController.swift */; };
 		3F9654922346A12100DEB0C4 /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9654912346A12100DEB0C4 /* HistoryTableViewController.swift */; };
 		3F9654942346A18000DEB0C4 /* CalculationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9654932346A18000DEB0C4 /* CalculationsViewController.swift */; };
@@ -29,8 +29,8 @@
 		15423582233E7B58001D6C98 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		15423585233E7B58001D6C98 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		15423587233E7B58001D6C98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		271DBE95236112A50053F694 /* Database.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Database.xcdatamodel; sourceTree = "<group>"; };
 		27DE2E3B2349613A00D7CD2D /* functionClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = functionClass.swift; sourceTree = "<group>"; };
+		27DE54CD236357CB00F91E53 /* Database.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Database.xcdatamodel; sourceTree = "<group>"; };
 		3F96548F2346A11800DEB0C4 /* FunctionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionsTableViewController.swift; sourceTree = "<group>"; };
 		3F9654912346A12100DEB0C4 /* HistoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
 		3F9654932346A18000DEB0C4 /* CalculationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationsViewController.swift; sourceTree = "<group>"; };
@@ -71,7 +71,7 @@
 			isa = PBXGroup;
 			children = (
 				15423579233E7B57001D6C98 /* AppDelegate.swift */,
-				271DBE94236112A50053F694 /* Database.xcdatamodeld */,
+				27DE54CC236357CB00F91E53 /* Database.xcdatamodeld */,
 				1542357F233E7B57001D6C98 /* Main.storyboard */,
 				15423582233E7B58001D6C98 /* Assets.xcassets */,
 				15423584233E7B58001D6C98 /* LaunchScreen.storyboard */,
@@ -174,7 +174,7 @@
 				3FF74E54235E158300BACDC4 /* Functions.swift in Sources */,
 				27DE2E3C2349613A00D7CD2D /* functionClass.swift in Sources */,
 				3F9654922346A12100DEB0C4 /* HistoryTableViewController.swift in Sources */,
-				271DBE96236112A50053F694 /* Database.xcdatamodeld in Sources */,
+				27DE54CE236357CB00F91E53 /* Database.xcdatamodeld in Sources */,
 				3FF74E52235E081300BACDC4 /* Calculator.swift in Sources */,
 				3FF74E78235EDD0300BACDC4 /* HistoryModel.swift in Sources */,
 				3FF74E56235E159600BACDC4 /* Groups.swift in Sources */,
@@ -326,7 +326,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z6PHC3BHTN;
 				INFOPLIST_FILE = FunctionCalculatoriOSFinal/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -345,7 +345,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z6PHC3BHTN;
 				INFOPLIST_FILE = FunctionCalculatoriOSFinal/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -381,14 +381,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		271DBE94236112A50053F694 /* Database.xcdatamodeld */ = {
+		27DE54CC236357CB00F91E53 /* Database.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				271DBE95236112A50053F694 /* Database.xcdatamodel */,
+				27DE54CD236357CB00F91E53 /* Database.xcdatamodel */,
 			);
-			currentVersion = 271DBE95236112A50053F694 /* Database.xcdatamodel */;
-			name = Database.xcdatamodeld;
-			path = ../Database.xcdatamodeld;
+			currentVersion = 27DE54CD236357CB00F91E53 /* Database.xcdatamodel */;
+			path = Database.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
