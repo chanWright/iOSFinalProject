@@ -111,6 +111,24 @@ class CalculationsViewController: UIViewController {
         super.viewDidLoad()
         functionImage.image = UIImage(named: function.functionName)
         switch function.variables.count{
+        case 2:
+            self.variableCTF.isHidden = true
+            self.variableDTF.isHidden = true
+            self.variableETF.isHidden = true
+            self.variableFTF.isHidden = true
+            self.variableGTF.isHidden = true
+            self.variableHTF.isHidden = true
+            
+            self.varCLBL.isHidden = true
+            self.varDLBL.isHidden = true
+            self.varELBL.isHidden = true
+            self.varFLBL.isHidden = true
+            self.varGLBL.isHidden = true
+            self.varHLBL.isHidden = true
+            
+            varALBL.text = function.variables[0]
+            varBLBL.text = function.variables[1]
+            break
         case 3:
             self.variableDTF.isHidden = true
             self.variableETF.isHidden = true

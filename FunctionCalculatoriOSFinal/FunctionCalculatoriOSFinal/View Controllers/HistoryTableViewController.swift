@@ -32,27 +32,27 @@ class HistoryTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         navigationItem.title = "History"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: nil)
-        fetchHistory()
+        //fetchHistory()
         tableView.reloadData()
         
         
 
     }
-    func fetchHistory(){
-        //create request
-        let request: NSFetchRequest<History> = NSFetchRequest(entityName: "History")
-        //fetch the data into an array, results - if it failsm the if is skipped
-        if let history = try? context.fetch(request) {
-            for dbitem in history{
-                let tempFunc = Functions(functionName: dbitem.funcName ?? "Error", formula: dbitem.formula ?? "Undefined", variables: dbitem.values)
-                HistoryModel.shared.addHistory(tempFunc)
-                for historyitem in dbitem{
-                    dbitem.values =
-                }
-                
-            }
-        }
-    }
+//    func fetchHistory(){
+//        //create request
+//        let request: NSFetchRequest<History> = NSFetchRequest(entityName: "History")
+//        //fetch the data into an array, results - if it failsm the if is skipped
+//        if let history = try? context.fetch(request) {
+//            for dbitem in history{
+//                let tempFunc = Functions(functionName: dbitem.funcName ?? "Error", formula: dbitem.formula ?? "Undefined", variables: dbitem.values)
+//                HistoryModel.shared.addHistory(tempFunc)
+//                for historyitem in dbitem{
+//                    dbitem.values =
+//                }
+//
+//            }
+//        }
+//    }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
