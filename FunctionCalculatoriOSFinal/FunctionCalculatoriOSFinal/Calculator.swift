@@ -37,9 +37,9 @@ class Calculator{
     }
     
     init(){
-        addGroup(group: Groups(groupName: "Maths", functions: [Functions(functionName: "Pythagorean Theorem", formula:"A^2 + B^2 = c^2", variables: ["a","b","c"]),Functions(functionName: "Subtract", formula: "a-b=Result", variables: ["a","b","Result"]),Functions(functionName: "Multiplication", formula: "a*b=Result", variables: ["a","b","Result"]),Functions(functionName: "Division", formula: "a/b=Result", variables: ["a","b","Result"])]))
+        addGroup(group: Groups(groupName: "Maths", functions: [Functions(functionName: "Pythagorean Theorem", formula:"A^2 + B^2 = c^2", variables: ["a","b","c"]),Functions(functionName: "Subtract", formula: "a-b=Result", variables: ["a","b","c"]),Functions(functionName: "Multiplication", formula: "a*b=Result", variables: ["a","b","c"]),Functions(functionName: "Division", formula: "a/b=Result", variables: ["a","b","c"])]))
         addGroup(group: Groups(groupName: "Physics", functions: [Functions(functionName: "Force", formula: "mass * accleration = Force", variables: ["mass", "acceleration","Force"]),Functions(functionName: "Velocity", formula: "Distance/Time=Velocity", variables: ["distance","time","velocity"]),Functions(functionName: "Kinetic Energy", formula: "(mass * velocity)/2", variables: ["mass","velocity","Kinetic Energy"])]))
-        addGroup(group: Groups(groupName: "Chemistry", functions: [Functions(functionName: "Atomic Number", formula: "number of protons + number of nuetrons=Atomic Number", variables: ["protons","neutrons","Atomic Number"]),Functions(functionName: "K20",formula: " ", variables: []),Functions(functionName: "Li",formula: " ", variables: [])]))
-        addGroup(group: Groups(groupName: "Mischellenous", functions: [Functions(functionName: "M", formula: " ", variables: []),Functions(functionName: "N", formula: " ", variables: [])]))
+        addGroup(group: Groups(groupName: "Chemistry", functions: [Functions(functionName: "Atomic Number", formula: "number of protons + number of nuetrons=Atomic Number", variables: ["protons","neutrons","Atomic Number"])]))
+        addGroup(group: Groups(groupName: "Mischellenous", functions: []))
     }
 }

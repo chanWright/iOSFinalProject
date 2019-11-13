@@ -13,37 +13,21 @@ class CalculationsViewController: UIViewController {
     var function:Functions!
     
     @IBOutlet weak var variableATF: UITextField!
-    
     @IBOutlet weak var variableBTF: UITextField!
-    
     @IBOutlet weak var variableCTF: UITextField!
-    
     @IBOutlet weak var variableDTF: UITextField!
-    
     @IBOutlet weak var variableETF: UITextField!
-    
     @IBOutlet weak var variableFTF: UITextField!
-    
     @IBOutlet weak var variableGTF: UITextField!
-    
     @IBOutlet weak var variableHTF: UITextField!
-    
     @IBOutlet weak var functionImage: UIImageView!
-    
     @IBOutlet weak var varALBL: UILabel!
-    
     @IBOutlet weak var varBLBL: UILabel!
-    
     @IBOutlet weak var varCLBL: UILabel!
-    
     @IBOutlet weak var varDLBL: UILabel!
-    
     @IBOutlet weak var varELBL: UILabel!
-    
     @IBOutlet weak var varFLBL: UILabel!
-    
     @IBOutlet weak var varGLBL: UILabel!
-    
     @IBOutlet weak var varHLBL: UILabel!
     
     @IBAction func reset(_ sender: UIButton) {
@@ -65,33 +49,15 @@ class CalculationsViewController: UIViewController {
         else if (variableATF.text!.isEmpty && variableBTF.text!.isEmpty) || (variableBTF.text!.isEmpty && variableCTF.text!.isEmpty) || (variableCTF.text!.isEmpty && variableATF.text!.isEmpty){
             alertMessage(title: "Two Text Fields Shouldn't be Empty", message: "One must fill One more Text Field")
         }
-        else if variableCTF.text!.isEmpty, let a = Double(variableATF.text!), let b = Double(variableBTF.text!){
-            variableCTF.text = String(format: "%.2f", ((pow(a, 2) + pow(b, 2)).squareRoot()))
-            print(a,b,variableCTF.text!)
-            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: []))
-        }
-        else if variableBTF.text!.isEmpty, let c = Double(variableCTF.text!), let a = Double(variableATF.text!){
-            variableBTF.text = String(format: "%.2f", ((pow(c, 2) - pow(a, 2)).squareRoot()))
-            print(a, variableBTF.text!, c)
-            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: []))
-        }
-        else if variableATF.text!.isEmpty, let b = Double(variableBTF.text!), let c = Double(variableCTF.text!){
-            variableATF.text = String(format: "%.2f", ((pow(c, 2) - pow(b, 2)).squareRoot()))
-            print(variableATF.text!, b, c)
-            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: []))
-        }
-        else if !(variableATF.text!.isEmpty), !(variableBTF.text!.isEmpty), !(variableCTF.text!.isEmpty){
-            let ac = UIAlertController(title: "Clear Text Fields!", message: "One Text Field should be Empty. Do you want to clear all the Text Fields ?", preferredStyle: .alert)
-            let action = UIAlertAction(title: "Yes", style: .default, handler: {
-                (action) in self.resetTF()
-            })
-            let action1 = UIAlertAction(title: "No", style: .default, handler: nil)
-            ac.addAction(action)
-            ac.addAction(action1)
-            self.present(ac,animated: true, completion: nil)
-        }
         else{
-            alertMessage(title: "String Error", message: "The Text Fields Shouldn't contain characters. It should contain only Numericals.")
+            switch function.functionName{
+            case "Pythagorean Theorem":
+                calcPythagorean()
+            case "Subtract":
+                calcSubtract()
+            default:
+                break
+            }
         }
     }
     
@@ -215,7 +181,95 @@ class CalculationsViewController: UIViewController {
             varHLBL.text = function.variables[7]
             break
         }
-        // Do any additional setup after loading the view.
+    }
+    
+    func calcPythagorean(){
+        if variableCTF.text!.isEmpty, let a = Double(variableATF.text!), let b = Double(variableBTF.text!){
+            variableCTF.text = String(format: "%.2f", ((pow(a, 2) + pow(b, 2)).squareRoot()))
+            print(a,b,variableCTF.text!)
+            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: []))
+        }
+        else if variableBTF.text!.isEmpty, let c = Double(variableCTF.text!), let a = Double(variableATF.text!){
+            variableBTF.text = String(format: "%.2f", ((pow(c, 2) - pow(a, 2)).squareRoot()))
+            print(a, variableBTF.text!, c)
+            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: []))
+        }
+        else if variableATF.text!.isEmpty, let b = Double(variableBTF.text!), let c = Double(variableCTF.text!){
+            variableATF.text = String(format: "%.2f", ((pow(c, 2) - pow(b, 2)).squareRoot()))
+            print(variableATF.text!, b, c)
+            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: []))
+        }
+        else if !(variableATF.text!.isEmpty), !(variableBTF.text!.isEmpty), !(variableCTF.text!.isEmpty){
+            let ac = UIAlertController(title: "Clear Text Fields!", message: "One Text Field should be Empty. Do you want to clear all the Text Fields ?", preferredStyle: .alert)
+            let action = UIAlertAction(title: "Yes", style: .default, handler: {
+                (action) in self.resetTF()
+            })
+            let action1 = UIAlertAction(title: "No", style: .default, handler: nil)
+            ac.addAction(action)
+            ac.addAction(action1)
+            self.present(ac,animated: true, completion: nil)
+        }
+        else{
+            alertMessage(title: "String Error", message: "The Text Fields Shouldn't contain characters. It should contain only Numericals.")
+        }
+    }
+    func calcSubtract(){
+        if variableCTF.text!.isEmpty, let a = Double(variableATF.text!), let b = Double(variableBTF.text!){
+            variableCTF.text = String(format: "%.2f", (a - b))
+            print(a,b,variableCTF.text!)
+            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: []))
+        }
+        else if variableBTF.text!.isEmpty, let c = Double(variableCTF.text!), let a = Double(variableATF.text!){
+            if c < 0{
+                variableBTF.text = String(format: "%.2f", (abs(c) + a))
+            }
+            else{
+                variableBTF.text = String(format: "%.2f", (a - c))
+            }
+            print(a, variableBTF.text!, c)
+            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: []))
+        }
+        else if variableATF.text!.isEmpty, let b = Double(variableBTF.text!), let c = Double(variableCTF.text!){
+            if c < 0{
+                variableATF.text = String(format: "%.2f", (b - abs(c)))
+            }
+            else{
+                variableATF.text = String(format: "%.2f", (c + b))
+            }
+            print(variableATF.text!, b, c)
+            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: []))
+        }
+        else if !(variableATF.text!.isEmpty), !(variableBTF.text!.isEmpty), !(variableCTF.text!.isEmpty){
+            let ac = UIAlertController(title: "Clear Text Fields!", message: "One Text Field should be Empty. Do you want to clear all the Text Fields ?", preferredStyle: .alert)
+            let action = UIAlertAction(title: "Yes", style: .default, handler: {
+                (action) in self.resetTF()
+            })
+            let action1 = UIAlertAction(title: "No", style: .default, handler: nil)
+            ac.addAction(action)
+            ac.addAction(action1)
+            self.present(ac,animated: true, completion: nil)
+        }
+        else{
+            alertMessage(title: "String Error", message: "The Text Fields Shouldn't contain characters. It should contain only Numericals.")
+        }
+    }
+    func calcMultiplication(){
+        
+    }
+    func calcDivision(){
+        
+    }
+    func calcForce(){
+        
+    }
+    func calcVelocity(){
+        
+    }
+    func calcKinetic(){
+        
+    }
+    func calcAtomicNum(){
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
