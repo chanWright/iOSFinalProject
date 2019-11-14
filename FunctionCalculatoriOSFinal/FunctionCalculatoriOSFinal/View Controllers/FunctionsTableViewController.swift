@@ -22,7 +22,6 @@ class FunctionsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Functions"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(edit))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(add))
         NotificationCenter.default.addObserver(self, selector: #selector(notifier), name: NSNotification.Name(rawValue:"Incoming"), object: nil)
     }
