@@ -12,6 +12,9 @@ class CalculationsViewController: UIViewController {
     
     var function:Functions!
     
+    
+    var results : [String : Double] = [:]
+    
     @IBOutlet weak var variableATF: UITextField!
     @IBOutlet weak var variableBTF: UITextField!
     @IBOutlet weak var variableCTF: UITextField!
@@ -85,6 +88,29 @@ class CalculationsViewController: UIViewController {
         variableBTF.text = ""
         variableCTF.text = ""
     }
+    
+    
+    
+    func result(){
+        for key in 0 ..< function.variables.count{
+            switch key{
+            case 0:results[function.variables[key]] = Double(variableATF.text!)
+            case 1:results[function.variables[key]] = Double(variableBTF.text!)
+            case 2:results[function.variables[key]] = Double(variableCTF.text!)
+            case 3:results[function.variables[key]] = Double(variableDTF.text!)
+            case 4:results[function.variables[key]] = Double(variableETF.text!)
+            case 5:results[function.variables[key]] = Double(variableFTF.text!)
+            case 6:results[function.variables[key]] = Double(variableGTF.text!)
+            case 7:results[function.variables[key]] = Double(variableHTF.text!)
+            default:print("error")
+            }
+        }
+    }
+    
+    
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         functionImage.image = UIImage(named: function.functionName)
@@ -199,17 +225,20 @@ class CalculationsViewController: UIViewController {
         if variableCTF.text!.isEmpty, let a = Double(variableATF.text!), let b = Double(variableBTF.text!){
             variableCTF.text = String(format: "%.2f", ((pow(a, 2) + pow(b, 2)).squareRoot()))
             print(a,b,variableCTF.text!)
-            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: []))
+            result()
+            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: [], results: results))
         }
         else if variableBTF.text!.isEmpty, let c = Double(variableCTF.text!), let a = Double(variableATF.text!){
             variableBTF.text = String(format: "%.2f", ((pow(c, 2) - pow(a, 2)).squareRoot()))
             print(a, variableBTF.text!, c)
-            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: []))
+            result()
+            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: [], results: results))
         }
         else if variableATF.text!.isEmpty, let b = Double(variableBTF.text!), let c = Double(variableCTF.text!){
             variableATF.text = String(format: "%.2f", ((pow(c, 2) - pow(b, 2)).squareRoot()))
             print(variableATF.text!, b, c)
-            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: []))
+            result()
+            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: [], results: results))
         }
         else if !(variableATF.text!.isEmpty), !(variableBTF.text!.isEmpty), !(variableCTF.text!.isEmpty){
             let ac = UIAlertController(title: "Clear Text Fields!", message: "One Text Field should be Empty. Do you want to clear all the Text Fields ?", preferredStyle: .alert)
@@ -230,7 +259,8 @@ class CalculationsViewController: UIViewController {
         if variableCTF.text!.isEmpty, let a = Double(variableATF.text!), let b = Double(variableBTF.text!){
             variableCTF.text = String(format: "%.2f", (a - b))
             print(a,b,variableCTF.text!)
-            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: []))
+            result()
+            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: [], results: results))
         }
         else if variableBTF.text!.isEmpty, let c = Double(variableCTF.text!), let a = Double(variableATF.text!){
             if c < 0{
@@ -240,7 +270,8 @@ class CalculationsViewController: UIViewController {
                 variableBTF.text = String(format: "%.2f", (a - c))
             }
             print(a, variableBTF.text!, c)
-            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: []))
+            result()
+            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: [], results: results))
         }
         else if variableATF.text!.isEmpty, let b = Double(variableBTF.text!), let c = Double(variableCTF.text!){
             if c < 0{
@@ -250,7 +281,8 @@ class CalculationsViewController: UIViewController {
                 variableATF.text = String(format: "%.2f", (c + b))
             }
             print(variableATF.text!, b, c)
-            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: []))
+            result()
+            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: [], results: results))
         }
         else if !(variableATF.text!.isEmpty), !(variableBTF.text!.isEmpty), !(variableCTF.text!.isEmpty){
             let ac = UIAlertController(title: "Clear Text Fields!", message: "One Text Field should be Empty. Do you want to clear all the Text Fields ?", preferredStyle: .alert)
@@ -271,17 +303,20 @@ class CalculationsViewController: UIViewController {
         if variableCTF.text!.isEmpty, let a = Double(variableATF.text!), let b = Double(variableBTF.text!){
             variableCTF.text = String(format: "%.2f", (a * b))
             print(a,b,variableCTF.text!)
-            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: []))
+            result()
+            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: [], results: results))
         }
         else if variableBTF.text!.isEmpty, let c = Double(variableCTF.text!), let a = Double(variableATF.text!){
             variableBTF.text = String(format: "%.2f", (c / a))
             print(a, variableBTF.text!, c)
-            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: []))
+            result()
+            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: [], results: results))
         }
         else if variableATF.text!.isEmpty, let b = Double(variableBTF.text!), let c = Double(variableCTF.text!){
             variableATF.text = String(format: "%.2f", (c / b))
             print(variableATF.text!, b, c)
-            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: []))
+            result()
+            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: [], results: results))
         }
         else if !(variableATF.text!.isEmpty), !(variableBTF.text!.isEmpty), !(variableCTF.text!.isEmpty){
             let ac = UIAlertController(title: "Clear Text Fields!", message: "One Text Field should be Empty. Do you want to clear all the Text Fields ?", preferredStyle: .alert)
@@ -302,17 +337,20 @@ class CalculationsViewController: UIViewController {
         if variableCTF.text!.isEmpty, let a = Double(variableATF.text!), let b = Double(variableBTF.text!){
             variableCTF.text = String(format: "%.2f", (a / b))
             print(a,b,variableCTF.text!)
-            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: []))
+            result()
+            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: [], results: results))
         }
         else if variableBTF.text!.isEmpty, let c = Double(variableCTF.text!), let a = Double(variableATF.text!){
             variableBTF.text = String(format: "%.2f", (a / c))
             print(a, variableBTF.text!, c)
-            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: []))
+            result()
+            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: [], results: results))
         }
         else if variableATF.text!.isEmpty, let b = Double(variableBTF.text!), let c = Double(variableCTF.text!){
             variableATF.text = String(format: "%.2f", (c * b))
             print(variableATF.text!, b, c)
-            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: []))
+            result()
+            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: [], results: results))
         }
         else if !(variableATF.text!.isEmpty), !(variableBTF.text!.isEmpty), !(variableCTF.text!.isEmpty){
             let ac = UIAlertController(title: "Clear Text Fields!", message: "One Text Field should be Empty. Do you want to clear all the Text Fields ?", preferredStyle: .alert)
@@ -333,17 +371,20 @@ class CalculationsViewController: UIViewController {
         if variableCTF.text!.isEmpty, let a = Double(variableATF.text!), let b = Double(variableBTF.text!){
             variableCTF.text = String(format: "%.2f", (a * b))
             print(a,b,variableCTF.text!)
-            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: []))
+            result()
+            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: [], results: results))
         }
         else if variableBTF.text!.isEmpty, let c = Double(variableCTF.text!), let a = Double(variableATF.text!){
             variableBTF.text = String(format: "%.2f", (c / a))
             print(a, variableBTF.text!, c)
-            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: []))
+            result()
+            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: [], results: results))
         }
         else if variableATF.text!.isEmpty, let b = Double(variableBTF.text!), let c = Double(variableCTF.text!){
             variableATF.text = String(format: "%.2f", (c / b))
             print(variableATF.text!, b, c)
-            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: []))
+            result()
+            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: [], results: results))
         }
         else if !(variableATF.text!.isEmpty), !(variableBTF.text!.isEmpty), !(variableCTF.text!.isEmpty){
             let ac = UIAlertController(title: "Clear Text Fields!", message: "One Text Field should be Empty. Do you want to clear all the Text Fields ?", preferredStyle: .alert)
@@ -364,17 +405,20 @@ class CalculationsViewController: UIViewController {
         if variableCTF.text!.isEmpty, let a = Double(variableATF.text!), let b = Double(variableBTF.text!){
             variableCTF.text = String(format: "%.2f", (a / b))
             print(a,b,variableCTF.text!)
-            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: []))
+            result()
+            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: [], results: results))
         }
         else if variableBTF.text!.isEmpty, let c = Double(variableCTF.text!), let a = Double(variableATF.text!){
             variableBTF.text = String(format: "%.2f", (a / c))
             print(a, variableBTF.text!, c)
-            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: []))
+            result()
+            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: [], results: results))
         }
         else if variableATF.text!.isEmpty, let b = Double(variableBTF.text!), let c = Double(variableCTF.text!){
             variableATF.text = String(format: "%.2f", (c * b))
             print(variableATF.text!, b, c)
-            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: []))
+            result()
+            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: [], results: results))
         }
         else if !(variableATF.text!.isEmpty), !(variableBTF.text!.isEmpty), !(variableCTF.text!.isEmpty){
             let ac = UIAlertController(title: "Clear Text Fields!", message: "One Text Field should be Empty. Do you want to clear all the Text Fields ?", preferredStyle: .alert)
@@ -395,17 +439,20 @@ class CalculationsViewController: UIViewController {
         if variableCTF.text!.isEmpty, let a = Double(variableATF.text!), let b = Double(variableBTF.text!){
             variableCTF.text = String(format: "%.2f", ((a * b) / 2))
             print(a,b,variableCTF.text!)
-            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: []))
+            result()
+            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: [], results: results))
         }
         else if variableBTF.text!.isEmpty, let c = Double(variableCTF.text!), let a = Double(variableATF.text!){
             variableBTF.text = String(format: "%.2f", ((c * 2) / a))
             print(a, variableBTF.text!, c)
-            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: []))
+            result()
+            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: [], results: results))
         }
         else if variableATF.text!.isEmpty, let b = Double(variableBTF.text!), let c = Double(variableCTF.text!){
             variableATF.text = String(format: "%.2f", ((c * 2) / b))
             print(variableATF.text!, b, c)
-            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: []))
+            result()
+            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: [], results: results))
         }
         else if !(variableATF.text!.isEmpty), !(variableBTF.text!.isEmpty), !(variableCTF.text!.isEmpty){
             let ac = UIAlertController(title: "Clear Text Fields!", message: "One Text Field should be Empty. Do you want to clear all the Text Fields ?", preferredStyle: .alert)
@@ -426,17 +473,20 @@ class CalculationsViewController: UIViewController {
         if variableCTF.text!.isEmpty, let a = Double(variableATF.text!), let b = Double(variableBTF.text!){
             variableCTF.text = String(format: "%.2f", (a + b))
             print(a,b,variableCTF.text!)
-            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: []))
+            result()
+            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: [], results: results))
         }
         else if variableBTF.text!.isEmpty, let c = Double(variableCTF.text!), let a = Double(variableATF.text!){
             variableBTF.text = String(format: "%.2f", (c - a))
             print(a, variableBTF.text!, c)
-            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: []))
+            result()
+            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: [], results: results))
         }
         else if variableATF.text!.isEmpty, let b = Double(variableBTF.text!), let c = Double(variableCTF.text!){
             variableATF.text = String(format: "%.2f", (c - b))
             print(variableATF.text!, b, c)
-            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: []))
+            result()
+            HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: [], results: results))
         }
         else if !(variableATF.text!.isEmpty), !(variableBTF.text!.isEmpty), !(variableCTF.text!.isEmpty){
             let ac = UIAlertController(title: "Clear Text Fields!", message: "One Text Field should be Empty. Do you want to clear all the Text Fields ?", preferredStyle: .alert)

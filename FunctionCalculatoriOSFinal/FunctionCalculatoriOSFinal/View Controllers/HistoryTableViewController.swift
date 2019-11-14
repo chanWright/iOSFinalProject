@@ -89,6 +89,10 @@ class HistoryTableViewController: UITableViewController {
         // Configure the cell...
         let history = HistoryModel.shared[indexPath.row]
         cell.textLabel?.text = history.functionName
+        cell.detailTextLabel?.text = ""
+        for (key,value) in history.results{
+            cell.detailTextLabel?.text! += "\(key): \(value) \t"
+        }
         return cell
     }
     

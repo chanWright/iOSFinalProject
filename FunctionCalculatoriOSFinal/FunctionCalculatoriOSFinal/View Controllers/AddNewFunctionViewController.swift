@@ -60,10 +60,10 @@ class AddNewFunctionViewController: UIViewController, UIPickerViewDelegate, UIPi
             formula.append("Result")
             
             switch pickerData[functionType.selectedRow(inComponent: 0)]{
-            case "Maths": Calculator.shared[0].addFunction(function: Functions(functionName: functionNameTF.text!, formula: formulaTF.text!, variables: formula))
-            case "Physics": Calculator.shared[1].addFunction(function: Functions(functionName: functionNameTF.text!, formula: formulaTF.text!, variables: formula))
-            case "Chemistry": Calculator.shared[2].addFunction(function: Functions(functionName: functionNameTF.text!, formula: formulaTF.text!, variables: formula))
-            default: Calculator.shared[3].addFunction(function: Functions(functionName: functionNameTF.text!, formula: formulaTF.text!, variables: formula))
+            case "Maths": Calculator.shared[0].addFunction(function: Functions(functionName: functionNameTF.text!, formula: formulaTF.text!, variables: formula, results: [:]))
+            case "Physics": Calculator.shared[1].addFunction(function: Functions(functionName: functionNameTF.text!, formula: formulaTF.text!, variables: formula, results: [:]))
+            case "Chemistry": Calculator.shared[2].addFunction(function: Functions(functionName: functionNameTF.text!, formula: formulaTF.text!, variables: formula, results: [:]))
+            default: Calculator.shared[3].addFunction(function: Functions(functionName: functionNameTF.text!, formula: formulaTF.text!, variables: formula, results: [:]))
             }
             NotificationCenter.default.post(Notification(name: Notification.Name("Incoming")))
             self.dismiss(animated: true, completion: nil)

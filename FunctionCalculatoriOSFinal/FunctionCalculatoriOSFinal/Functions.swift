@@ -12,5 +12,6 @@ struct Functions{
     var functionName:String
     var formula:String
     var variables:[String]
+    var results : [String:Double]
 }
 
