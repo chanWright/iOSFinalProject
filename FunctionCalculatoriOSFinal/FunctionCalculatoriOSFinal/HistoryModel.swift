@@ -44,8 +44,15 @@ class HistoryModel{
         self.history.append(history)
     }
     
-    func deleteHistory(at index:Int){
+   
+    
+    
+    func deleteOneHistory(at index:Int){
         history.remove(at: index)
+    }
+    
+    func deleteFullHistory(){
+        history.removeAll()
     }
     
     subscript(i:Int)->Functions{

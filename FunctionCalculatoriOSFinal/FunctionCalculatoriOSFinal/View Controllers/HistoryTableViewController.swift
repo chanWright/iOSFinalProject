@@ -31,13 +31,33 @@ class HistoryTableViewController: UITableViewController {
     // MARK: - Table view data source
     override func viewWillAppear(_ animated: Bool) {
         navigationItem.title = "History"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: nil)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(trash))
         //fetchHistory()
         tableView.reloadData()
         
-        
-
+            }
+    
+    
+    
+    
+    @objc func trash(){
+        if HistoryModel.shared.numOfHistory() > 0{
+            let ac = UIAlertController(title: "Deleting History!", message: "Do you want to clean your Entire history?", preferredStyle: .alert)
+            let action = UIAlertAction(title: "Yes", style: .default, handler: {
+                (action) in HistoryModel.shared.deleteFullHistory()
+                self.tableView.reloadData()
+            })
+            let action1 = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            ac.addAction(action)
+            ac.addAction(action1)
+            self.present(ac,animated: true, completion: nil)
+        }
+        else{
+            alertMessage(title: "Deleting History!", message: "There is no History to delete.")
+        }
     }
+    
+    
 //    func fetchHistory(){
 //        //create request
 //        let request: NSFetchRequest<History> = NSFetchRequest(entityName: "History")
@@ -71,6 +91,16 @@ class HistoryTableViewController: UITableViewController {
         cell.textLabel?.text = history.functionName
         return cell
     }
+    
+    
+    
+    func alertMessage(title:String, message:String){
+        let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+        ac.addAction(action)
+        self.present(ac,animated: true, completion: nil)
+    }
+    
  
 
     /*
@@ -86,7 +116,7 @@ class HistoryTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
-            HistoryModel.shared.deleteHistory(at: indexPath.row)
+            HistoryModel.shared.deleteOneHistory(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
