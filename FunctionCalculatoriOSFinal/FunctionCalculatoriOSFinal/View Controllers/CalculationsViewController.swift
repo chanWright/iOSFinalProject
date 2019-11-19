@@ -12,7 +12,6 @@ class CalculationsViewController: UIViewController {
     
     var function:Functions!
     
-    
     var results : [String : Double] = [:]
     
     @IBOutlet weak var variableATF: UITextField!
@@ -222,19 +221,19 @@ class CalculationsViewController: UIViewController {
     }
     
     func calcPythagorean(){
-        if variableCTF.text!.isEmpty, let a = Double(variableATF.text!), let b = Double(variableBTF.text!){
+        if variableCTF.text!.isEmpty, let a = Double(variableATF.text!), let b = Double(variableBTF.text!), a > 0.0, b > 0.0{
             variableCTF.text = String(format: "%.2f", ((pow(a, 2) + pow(b, 2)).squareRoot()))
             print(a,b,variableCTF.text!)
             result()
             HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: [], results: results))
         }
-        else if variableBTF.text!.isEmpty, let c = Double(variableCTF.text!), let a = Double(variableATF.text!){
+        else if variableBTF.text!.isEmpty, let c = Double(variableCTF.text!), let a = Double(variableATF.text!), c > 0.0, a > 0.0{
             variableBTF.text = String(format: "%.2f", ((pow(c, 2) - pow(a, 2)).squareRoot()))
             print(a, variableBTF.text!, c)
             result()
             HistoryModel.shared.addHistory(Functions(functionName: function.functionName, formula: "", variables: [], results: results))
         }
-        else if variableATF.text!.isEmpty, let b = Double(variableBTF.text!), let c = Double(variableCTF.text!){
+        else if variableATF.text!.isEmpty, let b = Double(variableBTF.text!), let c = Double(variableCTF.text!), b > 0.0, c > 0.0{
             variableATF.text = String(format: "%.2f", ((pow(c, 2) - pow(b, 2)).squareRoot()))
             print(variableATF.text!, b, c)
             result()
@@ -250,8 +249,9 @@ class CalculationsViewController: UIViewController {
             ac.addAction(action1)
             self.present(ac,animated: true, completion: nil)
         }
+        
         else{
-            alertMessage(title: "String Error", message: "The Text Fields Shouldn't contain characters. It should contain only Numericals.")
+            alertMessage(title: "String Error", message: "The Text Fields Shouldn't contain characters and Negative Numericals. It should contain only  Positive Numericals.")
         }
     }
     
