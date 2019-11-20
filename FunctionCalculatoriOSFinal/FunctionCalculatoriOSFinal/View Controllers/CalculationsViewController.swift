@@ -23,6 +23,7 @@ class CalculationsViewController: UIViewController {
     @IBOutlet weak var variableGTF: UITextField!
     @IBOutlet weak var variableHTF: UITextField!
     @IBOutlet weak var functionImage: UIImageView!
+    @IBOutlet weak var functionNameLBL: UILabel!
     @IBOutlet weak var varALBL: UILabel!
     @IBOutlet weak var varBLBL: UILabel!
     @IBOutlet weak var varCLBL: UILabel!
@@ -113,6 +114,7 @@ class CalculationsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         functionImage.image = UIImage(named: function.functionName)
+        functionNameLBL.text = function.formula
         switch function.variables.count{
         case 2:
             self.variableCTF.isHidden = true
