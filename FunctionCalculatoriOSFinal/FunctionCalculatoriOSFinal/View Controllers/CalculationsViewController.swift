@@ -49,9 +49,9 @@ class CalculationsViewController: UIViewController {
         if variableATF.text!.isEmpty, variableBTF.text!.isEmpty, variableCTF.text!.isEmpty{
             alertMessage(title: "Three Text Fields Shouldn't be Empty", message: "You Must only fill any two fields")
         }
-        else if (variableATF.text!.isEmpty && variableBTF.text!.isEmpty) || (variableBTF.text!.isEmpty && variableCTF.text!.isEmpty) || (variableCTF.text!.isEmpty && variableATF.text!.isEmpty){
-            alertMessage(title: "Two Text Fields Shouldn't be Empty", message: "One must fill One more Text Field")
-        }
+//        else if (variableATF.text!.isEmpty && variableBTF.text!.isEmpty) || (variableBTF.text!.isEmpty && variableCTF.text!.isEmpty) || (variableCTF.text!.isEmpty && variableATF.text!.isEmpty){
+//            alertMessage(title: "Two Text Fields Shouldn't be Empty", message: "One must fill One more Text Field")
+//        }
         else{
             switch function.functionName{
             case "Pythagorean Theorem":
@@ -71,7 +71,7 @@ class CalculationsViewController: UIViewController {
             case "Atomic Number":
                 calcAtomicNum()
             default:
-                break
+                anonymous()
             }
         }
     }
@@ -198,7 +198,7 @@ class CalculationsViewController: UIViewController {
             break
         case 7:
             self.variableHTF.isHidden = true
-
+            
             self.varHLBL.isHidden = true
             
             varALBL.text = function.variables[0]
@@ -220,6 +220,49 @@ class CalculationsViewController: UIViewController {
             varHLBL.text = function.variables[7]
             break
         }
+    }
+    
+    func A(number:Int)->String{
+        switch number{
+        case 0: return variableATF.text!
+        case 1: return variableBTF.text!
+        case 2: return variableCTF.text!
+        case 3: return variableDTF.text!
+        case 4: return variableETF.text!
+        case 5: return variableFTF.text!
+        case 6: return variableGTF.text!
+        case 7: return variableHTF.text!
+        default: return ""
+        }
+    }
+    func calculateString(expression:String)->Double{
+                let stringWithMathematicalOperation: String = expression
+                let exp: NSExpression = NSExpression(format: stringWithMathematicalOperation)
+                let result: Double = exp.expressionValue(with: nil, context: nil) as! Double
+                return result
+    }
+    
+    func anonymous(){
+        var duplicateString:String = function.formula
+        var duplicateString1:String = ""
+        for variable in 0 ..< function.variables.count - 1{
+            //print(function.variables[variable], A(number: variable))
+            duplicateString1 = duplicateString.replacingOccurrences(of: function.variables[variable], with: A(number: variable))
+            duplicateString = duplicateString1
+            //print("empty",duplicateString)
+        }
+        switch function.variables.count{
+        case 2: variableBTF.text = String(format: "%.2f", calculateString(expression: duplicateString))
+        case 3: variableCTF.text = String(format: "%.2f", calculateString(expression: duplicateString))
+        case 4: variableDTF.text = String(format: "%.2f", calculateString(expression: duplicateString))
+        case 5: variableETF.text = String(format: "%.2f", calculateString(expression: duplicateString))
+        case 6: variableFTF.text = String(format: "%.2f", calculateString(expression: duplicateString))
+        case 7: variableGTF.text = String(format: "%.2f", calculateString(expression: duplicateString))
+        default: return
+        }
+//        variableBTF.text = duplicateString
+//        print("result", variableBTF.text!)
+        
     }
     
     func calcPythagorean(){
@@ -251,7 +294,7 @@ class CalculationsViewController: UIViewController {
             ac.addAction(action1)
             self.present(ac,animated: true, completion: nil)
         }
-        
+            
         else{
             alertMessage(title: "String Error", message: "The Text Fields Shouldn't contain characters and Negative Numericals. It should contain only  Positive Numericals.")
         }

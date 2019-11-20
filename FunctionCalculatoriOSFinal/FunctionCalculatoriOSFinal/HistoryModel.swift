@@ -38,7 +38,7 @@ class HistoryModel{
         for variablePair in history.results{
             let variableItem = NSEntityDescription.insertNewObject(forEntityName: "Value", into: context) as! Value
             variableItem.variable = variablePair.key
-            variableItem.variableValue = variablePair.value
+            //variableItem.variableValue = variablePair.value
             historyItem.addToValues(variableItem)
         }
         appDelegate.saveContext()
