@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15400" systemVersion="19A602" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15508" systemVersion="19B88" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="History" representedClassName="History" syncable="YES" codeGenerationType="class">
         <attribute name="formula" optional="YES" attributeType="String"/>
-        <attribute name="funcName" optional="YES" attributeType="String"/>
-        <relationship name="values" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Value" inverseName="history" inverseEntity="Value"/>
+        <attribute name="funcName" attributeType="String"/>
+        <relationship name="values" toMany="YES" deletionRule="Nullify" destinationEntity="Value" inverseName="history" inverseEntity="Value"/>
     </entity>
     <entity name="Value" representedClassName="Value" syncable="YES" codeGenerationType="class">
-        <attribute name="variable" optional="YES" attributeType="String"/>
+        <attribute name="variable" attributeType="String"/>
+        <attribute name="variableValue" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="history" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="History" inverseName="values" inverseEntity="History"/>
     </entity>
     <elements>
         <element name="History" positionX="-10759.7890625" positionY="-24575.32421875" width="128" height="88"/>
-        <element name="Value" positionX="-10501.5078125" positionY="-24567.85546875" width="128" height="73"/>
+        <element name="Value" positionX="-10501.5078125" positionY="-24567.85546875" width="128" height="88"/>
     </elements>
 </model>

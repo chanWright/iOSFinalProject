@@ -12,7 +12,6 @@ import UIKit
 
 
 class HistoryModel{
-    @NSManaged public var values: NSSet?
     private var history:[Functions] = []
     
     private init(history:[Functions]){
@@ -24,23 +23,26 @@ class HistoryModel{
     }
     
     func addHistory(_ history:Functions){
+        //Stores item in CoreData
         var context:NSManagedObjectContext!
         var appDelegate:AppDelegate!
         context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         appDelegate = UIApplication.shared.delegate as? AppDelegate
         
+        //historyItem is an object representing an entry to be added to the CoreData store.
         let historyItem = NSEntityDescription.insertNewObject(forEntityName: "History", into: context) as! History
         historyItem.formula = history.formula
         historyItem.funcName = history.functionName
-        for variable in history.variables{
+        
+        //for each [variable, value] pair in a history (Function) object.
+        for variablePair in history.results{
             let variableItem = NSEntityDescription.insertNewObject(forEntityName: "Value", into: context) as! Value
-            variableItem.variable = variable
-//            historyItem.values
+            variableItem.variable = variablePair.key
+            variableItem.variableValue = variablePair.value
+            historyItem.addToValues(variableItem)
         }
-        
-        
         appDelegate.saveContext()
-        
+        //appends to local cache of history.
         self.history.append(history)
     }
     
