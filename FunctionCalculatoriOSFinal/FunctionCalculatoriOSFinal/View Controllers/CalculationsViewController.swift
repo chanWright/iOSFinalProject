@@ -47,7 +47,7 @@ class CalculationsViewController: UIViewController {
     
     @IBAction func calculateButton(_ sender: UIButton) {
         if variableATF.text!.isEmpty, variableBTF.text!.isEmpty, variableCTF.text!.isEmpty{
-            alertMessage(title: "Three Text Fields Shouldn't be Empty", message: "You Must only fill any two fields")
+            alertMessage(title: "Text Fields Shouldn't be Empty", message: "You Must only fill any two fields")
         }
 //        else if (variableATF.text!.isEmpty && variableBTF.text!.isEmpty) || (variableBTF.text!.isEmpty && variableCTF.text!.isEmpty) || (variableCTF.text!.isEmpty && variableATF.text!.isEmpty){
 //            alertMessage(title: "Two Text Fields Shouldn't be Empty", message: "One must fill One more Text Field")
