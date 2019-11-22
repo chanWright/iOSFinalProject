@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15400" systemVersion="19B88" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="FunctionEntity" representedClassName="FunctionEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="functionFormula" optional="YES" attributeType="String"/>
+        <attribute name="functionName" optional="YES" attributeType="String"/>
+        <attribute name="functionType" optional="YES" attributeType="String"/>
+        <relationship name="relationship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FunctionEntity" inverseName="relationship" inverseEntity="FunctionEntity"/>
+    </entity>
     <entity name="History" representedClassName="History" syncable="YES" codeGenerationType="class">
         <attribute name="formula" optional="YES" attributeType="String"/>
         <attribute name="funcName" attributeType="String"/>
@@ -15,5 +21,6 @@
     <elements>
         <element name="History" positionX="-10759.7890625" positionY="-24575.32421875" width="128" height="103"/>
         <element name="Value" positionX="-10501.5078125" positionY="-24567.85546875" width="128" height="103"/>
+        <element name="FunctionEntity" positionX="-10631.53125" positionY="-24694.58203125" width="128" height="103"/>
     </elements>
 </model>

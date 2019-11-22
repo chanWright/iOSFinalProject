@@ -72,14 +72,14 @@ class HistoryModel{
         let valueTableRequest:NSFetchRequest<Value> = NSFetchRequest(entityName: "Value")
         
         if let historyResults = try? context.fetch(historyTableRequest) {
-                if let valueResults = try? context.fetch(valueTableRequest) {
-                    for i in valueResults{
-                        if i.id == historyResults[index].uniqueID{
-                            context.delete(i)
-                            appDelegate.saveContext()
-                        }
+            if let valueResults = try? context.fetch(valueTableRequest) {
+                for i in valueResults{
+                    if i.id == historyResults[index].uniqueID{
+                        context.delete(i)
+                        appDelegate.saveContext()
                     }
                 }
+            }
             context.delete(historyResults[index])
             appDelegate.saveContext()
         }
@@ -88,7 +88,23 @@ class HistoryModel{
     
     func deleteFullHistory(){
         history.removeAll()
-        //        let request:NSFetchRequest<History> = NSFetchRequest(entityName: "History")
+        context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        appDelegate = UIApplication.shared.delegate as? AppDelegate
+        let historyTableRequest:NSFetchRequest<History> = NSFetchRequest(entityName: "History")
+        let valueTableRequest:NSFetchRequest<Value> = NSFetchRequest(entityName: "Value")
+        
+        if let historyResults = try? context.fetch(historyTableRequest) {
+            for i in historyResults{
+                context.delete(i)
+                appDelegate.saveContext()
+            }
+        }
+        if let valueResults = try? context.fetch(valueTableRequest) {
+            for i in valueResults{
+                context.delete(i)
+                appDelegate.saveContext()
+            }
+        }
     }
     
     subscript(i:Int)->Functions{
