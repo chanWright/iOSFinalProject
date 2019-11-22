@@ -56,17 +56,24 @@ class AddNewFunctionViewController: UIViewController, UIPickerViewDelegate, UIPi
             
         }
         else if !(functionNameTF.text!.isEmpty), !(formulaTF.text!.isEmpty){
-            var formula = Array(Set(formulaTF.text!.components(separatedBy:CharacterSet.letters.inverted).filter{$0 != ""}))
-            formula.append("Result")
-            
-            switch pickerData[functionType.selectedRow(inComponent: 0)]{
-            case "Maths": Calculator.shared[0].addFunction(function: Functions(functionName: functionNameTF.text!, formula: formulaTF.text!, variables: formula, results: [:]))
-            case "Physics": Calculator.shared[1].addFunction(function: Functions(functionName: functionNameTF.text!, formula: formulaTF.text!, variables: formula, results: [:]))
-            case "Chemistry": Calculator.shared[2].addFunction(function: Functions(functionName: functionNameTF.text!, formula: formulaTF.text!, variables: formula, results: [:]))
-            default: Calculator.shared[3].addFunction(function: Functions(functionName: functionNameTF.text!, formula: formulaTF.text!, variables: formula, results: [:]))
+            let testFormula = Array(Set(formulaTF.text!.components(separatedBy:CharacterSet.letters.inverted).filter{$0 != ""}))
+            let testFunction = Functions(functionName: functionNameTF.text!, formula: formulaTF.text!, variables: testFormula, results: [:])
+            if(!formulaTF.text!.contains("=") && testFunction.variables.count <= 7){
+                var formula = Array(Set(formulaTF.text!.components(separatedBy:CharacterSet.letters.inverted).filter{$0 != ""}))
+                formula.append("Result")
+                
+                switch pickerData[functionType.selectedRow(inComponent: 0)]{
+                case "Maths": Calculator.shared[0].addFunction(function: Functions(functionName: functionNameTF.text!, formula: formulaTF.text!, variables: formula, results: [:]))
+                case "Physics": Calculator.shared[1].addFunction(function: Functions(functionName: functionNameTF.text!, formula: formulaTF.text!, variables: formula, results: [:]))
+                case "Chemistry": Calculator.shared[2].addFunction(function: Functions(functionName: functionNameTF.text!, formula: formulaTF.text!, variables: formula, results: [:]))
+                default: Calculator.shared[3].addFunction(function: Functions(functionName: functionNameTF.text!, formula: formulaTF.text!, variables: formula, results: [:]))
+                }
+                NotificationCenter.default.post(Notification(name: Notification.Name("Incoming")))
+                self.dismiss(animated: true, completion: nil)
             }
-            NotificationCenter.default.post(Notification(name: Notification.Name("Incoming")))
-            self.dismiss(animated: true, completion: nil)
+            else{
+                alertMessage(title: "Formula Error", message: "Not a valid funtion or has more variable than allowed")
+            }
         }
     }
     
