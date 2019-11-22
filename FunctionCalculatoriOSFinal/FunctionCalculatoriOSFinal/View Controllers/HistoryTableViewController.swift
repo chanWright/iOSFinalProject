@@ -19,23 +19,21 @@ class HistoryTableViewController: UITableViewController {
         tabBarItem.title = "History"
         tabBarItem.image = UIImage(named:"history.png")
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         appDelegate = UIApplication.shared.delegate as? AppDelegate
-        
-        
-        }
+        fetchResults()
+    }
     // MARK: - Table view data source
     override func viewWillAppear(_ animated: Bool) {
         navigationItem.title = "History"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(trash))
-        //fetchHistory()
         tableView.reloadData()
         
-            }
+    }
     
     
     
@@ -57,33 +55,52 @@ class HistoryTableViewController: UITableViewController {
         }
     }
     
+    func fetchResults(){
+        
+        HistoryModel.shared.deleteFullHistory()
+        var results:[String:Double] = [:]
+        
+        let requestHistoryTable:NSFetchRequest<History> = NSFetchRequest(entityName: "History")
+        let requestValueTable:NSFetchRequest<Value> = NSFetchRequest(entityName: "Value")
+        
+        if let histories = try? context.fetch(requestHistoryTable){
+            for history in histories{
+                print(history.uniqueID, history.funcName!, history.formula!)
+                if let values = try? context.fetch(requestValueTable){
+                    for value in values{
+                        if value.id == history.uniqueID{
+                        print(value.id, value.variable!, value.variableValue)
+                        results[value.variable!] = value.variableValue
+                        }
+                    }
+                    HistoryModel.shared.addHistory(Functions(functionName: history.funcName!, formula: history.formula!, variables: [], results: results))
+                }
+            }
+        }
+    }
     
-//    func fetchHistory(){
-//        //create request
-//        let request: NSFetchRequest<History> = NSFetchRequest(entityName: "History")
-//        //fetch the data into an array, results - if it failsm the if is skipped
-//        if let history = try? context.fetch(request) {
-//            for dbitem in history{
-//                let tempFunc = Functions(functionName: dbitem.funcName ?? "Error", formula: dbitem.formula ?? "Undefined", variables: dbitem.values)
-//                HistoryModel.shared.addHistory(tempFunc)
-//                for historyitem in dbitem{
-//                    dbitem.values =
-//                }
-//
-//            }
-//        }
-//    }
-
+    //    func fetchValues(){
+    //        let requestValueTable:NSFetchRequest<Value> = NSFetchRequest(entityName: "Value")
+    //        if let values = try? context.fetch(requestValueTable){
+    //            for value in values{
+    //                print("count",values.count)
+    //                print(value.variable!)
+    //                print(value.variableValue)
+    //            }
+    //        }
+    //    }
+    
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return HistoryModel.shared.numOfHistory()
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "historyTableCell", for: indexPath)
         // Configure the cell...
@@ -105,16 +122,16 @@ class HistoryTableViewController: UITableViewController {
         self.present(ac,animated: true, completion: nil)
     }
     
- 
-
+    
+    
     /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
+     // Override to support conditional editing of the table view.
+     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+     // Return false if you do not want the specified item to be editable.
+     return true
+     }
+     */
+    
     
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -124,33 +141,33 @@ class HistoryTableViewController: UITableViewController {
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
     }
- 
-
+    
+    
     /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
+     // Override to support rearranging the table view.
+     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+     
+     }
+     */
+    
     /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
+     // Override to support conditional rearranging of the table view.
+     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+     // Return false if you do not want the item to be re-orderable.
+     return true
+     }
+     */
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

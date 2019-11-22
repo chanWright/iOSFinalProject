@@ -20,37 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         appDelegate = UIApplication.shared.delegate as? AppDelegate
-        
-        
-        //sample data feeder. Doesn't have attached object???
-//        let sampleData = NSEntityDescription.insertNewObject(forEntityName: "History", into: context) as! History
-//        sampleData.formula = "TEST FORMULA"
-//        sampleData.funcName = "TEST FUNCTION NAME"
-//        let sampleValue = NSEntityDescription.insertNewObject(forEntityName: "Value", into: context) as! Value
-//        sampleValue.variable = "a"
-//        sampleValue.variableValue = 1231112.1
-//        sampleData.values?.adding(sampleValue)
-//        appDelegate.saveContext()
-        
-        
-        
-        
-        let request:NSFetchRequest<History> = NSFetchRequest(entityName: "History")
-        //push the data into an array, if it can't if is skipped
-        
-        
-        if let histories = try? context.fetch(request){
-            for history in histories{
-                print(history.funcName)
-                print(history.values)
-                
-//                let tempHistoryObject:Functions = Functions(functionName: history.funcName ?? "Function Name Error", formula: history.formula ?? "Formula Error", variables: [""], results: pairs)
-                //retrieve variable and value from history and store them in the tempHistoryObject
-                //for each pair in history.values (String, Double)
-                
-//                HistoryModel.shared.addHistory(tempHistoryObject)
-            }
-        }
         return true
     }
 
