@@ -40,6 +40,6 @@ class Calculator{
         addGroup(group: Groups(groupName: "Maths", functions: [Functions(functionName: "Pythagorean Theorem", formula:"A^2 + B^2 = c^2", variables: ["a","b","c"], results: [:]),Functions(functionName: "Subtract", formula: "a-b", variables: ["a","b","c"], results: [:]),Functions(functionName: "Multiplication", formula: "a*b", variables: ["a","b","c"], results: [:]),Functions(functionName: "Division", formula: "a/b", variables: ["a","b","c"], results: [:])]))
         addGroup(group: Groups(groupName: "Physics", functions: [Functions(functionName: "Force", formula: "mass * accleration", variables: ["Mass", "Acceleration","Force"], results: [:]),Functions(functionName: "Velocity", formula: "Distance/Time", variables: ["Distance","Time","Velocity"], results: [:]),Functions(functionName: "Kinetic Energy", formula: "(mass * velocity^2)/2", variables: ["mass","velocity","Kinetic Energy"], results: [:])]))
         addGroup(group: Groups(groupName: "Chemistry", functions: [Functions(functionName: "Atomic Number", formula: "No. protons + No. nuetrons", variables: ["Protons","Neutrons","Atomic Number"], results: [:])]))
-        addGroup(group: Groups(groupName: "Mischellenous", functions: []))
+        addGroup(group: Groups(groupName: "Miscellaneous", functions: []))
     }
 }
