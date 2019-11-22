@@ -56,8 +56,7 @@ class HistoryTableViewController: UITableViewController {
     }
     
     func fetchResults(){
-        
-        HistoryModel.shared.deleteFullHistory()
+
         var results:[String:Double] = [:]
         
         let requestHistoryTable:NSFetchRequest<History> = NSFetchRequest(entityName: "History")
@@ -78,18 +77,6 @@ class HistoryTableViewController: UITableViewController {
             }
         }
     }
-    
-    //    func fetchValues(){
-    //        let requestValueTable:NSFetchRequest<Value> = NSFetchRequest(entityName: "Value")
-    //        if let values = try? context.fetch(requestValueTable){
-    //            for value in values{
-    //                print("count",values.count)
-    //                print(value.variable!)
-    //                print(value.variableValue)
-    //            }
-    //        }
-    //    }
-    
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections

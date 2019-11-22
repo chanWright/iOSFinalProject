@@ -19,28 +19,25 @@ class HistoryModel{
     
     private var history:[Functions] = []
     
-    private init(history:[Functions]){
+    private init(history:[Functions],ID:Int16){
         self.history = history
+        self.ID = ID
     }
     
     func numOfHistory()->Int{
         return history.count
     }
     
-    func populateDatabase(){
-        
-    }
-    
-    
-    func addHistory(_ history:Functions){
-        self.history.append(history)
-        //Stores item in CoreData
+    func populateDatabase(_ history:Functions){
+        addHistory(history)
         context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         appDelegate = UIApplication.shared.delegate as? AppDelegate
         //historyItem is an object representing an entry to be added to the CoreData store.
+        let historyTableRequest:NSFetchRequest<History> = NSFetchRequest(entityName: "History")
+        if let historyResults = try? context.fetch(historyTableRequest) {
         
         let historyItem = NSEntityDescription.insertNewObject(forEntityName: "History", into: context) as! History
-        ID += 1
+        ID = Int16(historyResults.count + 1)
         historyItem.uniqueID = ID
         historyItem.formula = history.formula
         historyItem.funcName = history.functionName
@@ -56,8 +53,11 @@ class HistoryModel{
             historyItem.addToValues(variableItem)
         }
         appDelegate.saveContext()
-        //self.history.append(Functions(functionName: history.functionName, formula: history.formula, variables: history.variables, results: results))
-        //appends to local cache of history.
+        }
+    }
+    
+    func addHistory(_ history:Functions){
+        self.history.append(history)
     }
     
     func deleteOneHistory(at index:Int){
@@ -82,14 +82,7 @@ class HistoryModel{
     
     func deleteFullHistory(){
         history.removeAll()
-        //        let request:NSFetchRequest<History> = NSFetchRequest(entityName: "History")
-        //
-        //        if let results = try? context.fetch(request) {
-        //            for resultIndex in 0..<results.count{
-        //                context.delete(results[resultIndex])
-        //                appDelegate.saveContext()
-        //            }
-        //        }
+//        let request:NSFetchRequest<History> = NSFetchRequest(entityName: "History")
     }
     
     subscript(i:Int)->Functions{
