@@ -72,6 +72,7 @@ class HistoryTableViewController: UITableViewController {
                         results[value.variable!] = value.variableValue
                         }
                     }
+                    
                     HistoryModel.shared.addHistory(Functions(functionName: history.funcName!, formula: history.formula!, variables: [], results: results))
                 }
             }

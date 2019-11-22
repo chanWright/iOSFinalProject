@@ -29,30 +29,34 @@ class HistoryModel{
     }
     
     func populateDatabase(_ history:Functions){
-        addHistory(history)
+        self.history.append(history)
         context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         appDelegate = UIApplication.shared.delegate as? AppDelegate
         //historyItem is an object representing an entry to be added to the CoreData store.
         let historyTableRequest:NSFetchRequest<History> = NSFetchRequest(entityName: "History")
         if let historyResults = try? context.fetch(historyTableRequest) {
-        
-        let historyItem = NSEntityDescription.insertNewObject(forEntityName: "History", into: context) as! History
-        ID = Int16(historyResults.count + 1)
-        historyItem.uniqueID = ID
-        historyItem.formula = history.formula
-        historyItem.funcName = history.functionName
-        
-        //for each [variable, value] pair in a history (Function) object.
-        var results:[String:Double] = [:]
-        for variablePair in history.results{
-            let variableItem = NSEntityDescription.insertNewObject(forEntityName: "Value", into: context) as! Value
-            variableItem.id = ID
-            variableItem.variable = variablePair.key
-            variableItem.variableValue = variablePair.value
-            results[variableItem.variable!] = variableItem.variableValue
-            historyItem.addToValues(variableItem)
-        }
-        appDelegate.saveContext()
+            
+            let historyItem = NSEntityDescription.insertNewObject(forEntityName: "History", into: context) as! History
+            ID = Int16(historyResults.count + 1)
+            historyItem.uniqueID = ID
+            historyItem.formula = history.formula
+            historyItem.funcName = history.functionName
+            
+            //for each [variable, value] pair in a history (Function) object.
+            var results:[String:Double] = [:]
+            print(history.results.count)
+            for variablePair in history.results{
+                let variableItem = NSEntityDescription.insertNewObject(forEntityName: "Value", into: context) as! Value
+                print(ID)
+                variableItem.id = ID
+                variableItem.variable = variablePair.key
+                variableItem.variableValue = variablePair.value
+                print(variableItem.variable,variableItem.variableValue)
+                results[variableItem.variable!] = variableItem.variableValue
+                historyItem.addToValues(variableItem)
+                appDelegate.saveContext()
+            }
+            
         }
     }
     
@@ -62,27 +66,29 @@ class HistoryModel{
     
     func deleteOneHistory(at index:Int){
         history.remove(at: index)
+        context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        appDelegate = UIApplication.shared.delegate as? AppDelegate
         let historyTableRequest:NSFetchRequest<History> = NSFetchRequest(entityName: "History")
         let valueTableRequest:NSFetchRequest<Value> = NSFetchRequest(entityName: "Value")
         
         if let historyResults = try? context.fetch(historyTableRequest) {
+                if let valueResults = try? context.fetch(valueTableRequest) {
+                    for i in valueResults{
+                        if i.id == historyResults[index].uniqueID{
+                            context.delete(i)
+                            appDelegate.saveContext()
+                        }
+                    }
+                }
             context.delete(historyResults[index])
             appDelegate.saveContext()
-        }
-        if let valueResults = try? context.fetch(valueTableRequest) {
-            for i in valueResults{
-                if i.id == index{
-                context.delete(i)
-                appDelegate.saveContext()
-                }
-            }
         }
         
     }
     
     func deleteFullHistory(){
         history.removeAll()
-//        let request:NSFetchRequest<History> = NSFetchRequest(entityName: "History")
+        //        let request:NSFetchRequest<History> = NSFetchRequest(entityName: "History")
     }
     
     subscript(i:Int)->Functions{
