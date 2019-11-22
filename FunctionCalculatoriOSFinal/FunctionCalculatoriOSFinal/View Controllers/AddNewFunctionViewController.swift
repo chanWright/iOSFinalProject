@@ -16,7 +16,7 @@ class AddNewFunctionViewController: UIViewController, UIPickerViewDelegate, UIPi
     
     @IBOutlet weak var functionType: UIPickerView!
     
-    var pickerData:[String] = ["Maths","Physics","Chemistry","Mischellenous"]
+    var pickerData:[String] = ["Maths","Physics","Chemistry","Miscellaneous"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
