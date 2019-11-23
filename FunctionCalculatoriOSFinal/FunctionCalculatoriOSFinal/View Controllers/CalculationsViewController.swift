@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// This view controller is used for dynamic calculations
 class CalculationsViewController: UIViewController {
     
     var function:Functions!
@@ -46,6 +47,7 @@ class CalculationsViewController: UIViewController {
         variableGTF.text = ""
         variableHTF.text = ""
     }
+    
     //Makes sure you have correct input.
     @IBAction func calculateButton(_ sender: UIButton) {
         if variableATF.text!.isEmpty, variableBTF.text!.isEmpty, variableCTF.text!.isEmpty,variableDTF.text!.isEmpty,variableETF.text!.isEmpty,variableFTF.text!.isEmpty,variableGTF.text!.isEmpty{
@@ -75,6 +77,11 @@ class CalculationsViewController: UIViewController {
         }
     }
     
+    /// This method is used for displaying the alerts
+    ///
+    /// - Parameters:
+    ///   - title: Title of the alert
+    ///   - message: message of alert
     func alertMessage(title:String, message:String){
         let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .default, handler: nil)
@@ -82,14 +89,14 @@ class CalculationsViewController: UIViewController {
         self.present(ac,animated: true, completion: nil)
     }
     
+    /// This function is used to reset the values.
     func resetTF() {
         variableATF.text = ""
         variableBTF.text = ""
         variableCTF.text = ""
     }
     
-    
-    
+    /// This function is used to adding results to results dictionary
     func result(){
         for key in 0 ..< function.variables.count{
             switch key{
@@ -105,10 +112,6 @@ class CalculationsViewController: UIViewController {
             }
         }
     }
-    
-    
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -221,7 +224,11 @@ class CalculationsViewController: UIViewController {
         }
     }
     
-    func A(number:Int)->String{
+    /// This function is used for replacing the string
+    ///
+    /// - Parameter number: selecting the exact text field position
+    /// - Returns: the exact text field
+    func replace(number:Int)->String{
         switch number{
         case 0: return variableATF.text!
         case 1: return variableBTF.text!
@@ -234,22 +241,28 @@ class CalculationsViewController: UIViewController {
         default: return ""
         }
     }
+    
+    /// This function is used to evaluate the string expression.
+    ///
+    /// - Parameter expression: formula of type string
+    /// - Returns: it returns the calculated value of the string expression
     func calculateString(expression:String)->Double{
-                let stringWithMathematicalOperation: String = expression
-                let exp: NSExpression = NSExpression(format: stringWithMathematicalOperation)
-                let result: Double = exp.expressionValue(with: nil, context: nil) as! Double
-                return result
+        let stringWithMathematicalOperation: String = expression
+        let exp: NSExpression = NSExpression(format: stringWithMathematicalOperation)
+        let result: Double = exp.expressionValue(with: nil, context: nil) as! Double
+        return result
     }
     
+    /// This function is called for the user added functions
     func anonymousFunctions(){
         var count:Int = 0
         for i in 0 ..< (function.variables.count - 1){
-            if !(A(number:i).isEmpty){
+            if !(replace(number:i).isEmpty){
                 count += 1
             }
         }
         
-        if !(A(number: function.variables.count - 1).isEmpty){
+        if !(replace(number: function.variables.count - 1).isEmpty){
             alertMessage(title: "Text Fields Error", message: "Last text field is the result. It should be empty.")
         }
         else if count == function.variables.count - 1{
@@ -257,7 +270,7 @@ class CalculationsViewController: UIViewController {
             var duplicateString1:String = ""
             for variable in 0 ..< function.variables.count - 1{
                 //print(function.variables[variable], A(number: variable))
-                duplicateString1 = duplicateString.replacingOccurrences(of: function.variables[variable], with: A(number: variable))
+                duplicateString1 = duplicateString.replacingOccurrences(of: function.variables[variable], with: replace(number: variable))
                 duplicateString = duplicateString1
                 //print("empty",duplicateString)
             }

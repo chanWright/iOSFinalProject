@@ -10,6 +10,7 @@ import Foundation
 import CoreData
 import UIKit
 
+/// This is a model class for Groups
 class Groups{
     var context:NSManagedObjectContext!
     var appDelegate:AppDelegate!
@@ -20,11 +21,15 @@ class Groups{
         self.groupName = groupName
         self.functions = functions
     }
+    
     ///Returns the number of functions in a group
     func numOffunctions()->Int{
         return functions.count
     }
     
+    /// This function is used to insert data into the FunctionEntity table
+    ///
+    /// - Parameter function: passing function data
     func populateFunctionData(function:Functions){
         functions.append(function)
         
@@ -39,10 +44,12 @@ class Groups{
         print(insert.functionName!, insert.functionFormula!, insert.functionType!)
         appDelegate.saveContext()
     }
+    
     ///Adds a function to the Group
     func addFunction(function:Functions){
         functions.append(function)
     }
+    
     ///deletes a function from the Group
     func deleteFunction(at index:Int){
         functions.remove(at: index)

@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 
+/// This table view controller is used to display the history of user data
 class HistoryTableViewController: UITableViewController {
     
     var context:NSManagedObjectContext!
@@ -27,6 +28,7 @@ class HistoryTableViewController: UITableViewController {
         appDelegate = UIApplication.shared.delegate as? AppDelegate
         fetchResults()
     }
+    
     // MARK: - Table view data source
     override func viewWillAppear(_ animated: Bool) {
         navigationItem.title = "History"
@@ -34,8 +36,6 @@ class HistoryTableViewController: UITableViewController {
         tableView.reloadData()
         
     }
-    
-    
     
     //Handles deletion of the whole local HistoryModel record. These changes are saved, and are permanent. 
     @objc func trash(){
@@ -54,9 +54,10 @@ class HistoryTableViewController: UITableViewController {
             alertMessage(title: "Deleting History!", message: "There is no History to delete.")
         }
     }
+    
     ///fetchResults() will make an NSFetchRequest to the CoreData database and populate append it to the local history array located in HistoryModel.
     func fetchResults(){
-
+        
         var results:[String:Double] = [:]
         
         let requestHistoryTable:NSFetchRequest<History> = NSFetchRequest(entityName: "History")
@@ -68,8 +69,8 @@ class HistoryTableViewController: UITableViewController {
                 if let values = try? context.fetch(requestValueTable){
                     for value in values{
                         if value.id == history.uniqueID{
-                        print(value.id, value.variable!, value.variableValue)
-                        results[value.variable!] = value.variableValue
+                            print(value.id, value.variable!, value.variableValue)
+                            results[value.variable!] = value.variableValue
                         }
                     }
                     
@@ -101,6 +102,11 @@ class HistoryTableViewController: UITableViewController {
         return cell
     }
     
+    /// This method is used for displaying the alerts
+    ///
+    /// - Parameters:
+    ///   - title: Title of the alert
+    ///   - message: message of alert
     func alertMessage(title:String, message:String){
         let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .default, handler: nil)

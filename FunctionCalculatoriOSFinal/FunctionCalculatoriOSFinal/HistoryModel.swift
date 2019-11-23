@@ -23,11 +23,15 @@ class HistoryModel{
         self.history = history
         self.ID = ID
     }
+    
     ///returns the number of Functions previously calculated.
     func numOfHistory()->Int{
         return history.count
     }
     
+    /// This function is used to insert data to the History entity and the values entity
+    ///
+    /// - Parameter history: passing history data
     func populateDatabase(_ history:Functions){
         self.history.append(history)
         context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -44,19 +48,18 @@ class HistoryModel{
             
             //for each [variable, value] pair in a history (Function) object.
             var results:[String:Double] = [:]
-            print(history.results.count)
+            //print(history.results.count)
             for variablePair in history.results{
                 let variableItem = NSEntityDescription.insertNewObject(forEntityName: "Value", into: context) as! Value
                 print(ID)
                 variableItem.id = ID
                 variableItem.variable = variablePair.key
                 variableItem.variableValue = variablePair.value
-//                print(variableItem.variable,variableItem.variableValue)
+                //                print(variableItem.variable,variableItem.variableValue)
                 results[variableItem.variable!] = variableItem.variableValue
                 historyItem.addToValues(variableItem)
                 appDelegate.saveContext()
             }
-            
         }
     }
     
@@ -87,6 +90,7 @@ class HistoryModel{
         }
         
     }
+    
     ///Deletes all history from the local history storage and the CoreData database. 
     func deleteFullHistory(){
         history.removeAll()

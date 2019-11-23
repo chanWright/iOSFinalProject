@@ -9,6 +9,7 @@
 //This view controller handles adding new function to the Calculator class.
 import UIKit
 
+/// This view controller is user to add the user added formulas
 class AddNewFunctionViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     @IBOutlet weak var functionNameTF: UITextField!
@@ -32,6 +33,12 @@ class AddNewFunctionViewController: UIViewController, UIPickerViewDelegate, UIPi
         // Do any additional setup after loading the view.
     }
     
+    /// This function is used for string balanced parnthesis
+    ///
+    /// - Parameters:
+    ///   - str: string formula
+    ///   - dictAccordance: passing paranthesis
+    /// - Returns: returns whather the string is balanced or not.
     func isBalanced(str: String, dictAccordance: [Character : Character]) -> Bool {
         var balArr: [Character] = []
         
@@ -60,6 +67,11 @@ class AddNewFunctionViewController: UIViewController, UIPickerViewDelegate, UIPi
         return balArr.isEmpty
     }
     
+    /// This method is used for displaying the alerts
+    ///
+    /// - Parameters:
+    ///   - title: Title of the alert
+    ///   - message: message of alert
     func alertMessage(title:String, message:String){
         let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .default, handler: nil)
@@ -70,6 +82,7 @@ class AddNewFunctionViewController: UIViewController, UIPickerViewDelegate, UIPi
     @objc func cancel(){
         self.dismiss(animated: true, completion: nil)
     }
+    
     //Handles and processes all custom functions, then calls the addFunction method of Calculator
     @objc func add(){
         if functionNameTF.text!.isEmpty, formulaTF.text!.isEmpty{
