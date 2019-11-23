@@ -48,12 +48,9 @@ class CalculationsViewController: UIViewController {
     }
     //Makes sure you have correct input.
     @IBAction func calculateButton(_ sender: UIButton) {
-        if variableATF.text!.isEmpty, variableBTF.text!.isEmpty, variableCTF.text!.isEmpty{
-            alertMessage(title: "Text Fields Shouldn't be Empty", message: "You Must only fill any two fields")
+        if variableATF.text!.isEmpty, variableBTF.text!.isEmpty, variableCTF.text!.isEmpty,variableDTF.text!.isEmpty,variableETF.text!.isEmpty,variableFTF.text!.isEmpty,variableGTF.text!.isEmpty{
+            alertMessage(title: "Text Fields Shouldn't be Empty", message: "You Must fill \(function.variables.count - 1) Text fields")
         }
-//        else if (variableATF.text!.isEmpty && variableBTF.text!.isEmpty) || (variableBTF.text!.isEmpty && variableCTF.text!.isEmpty) || (variableCTF.text!.isEmpty && variableAT F.text!.isEmpty){
-//            alertMessage(title: "Two Text Fields Shouldn't be Empty", message: "One must fill One more Text Field")
-//        }
         else{
             switch function.functionName{
             case "Pythagorean Theorem":
@@ -245,25 +242,41 @@ class CalculationsViewController: UIViewController {
     }
     
     func anonymousFunctions(){
-        var duplicateString:String = function.formula
-        var duplicateString1:String = ""
-        for variable in 0 ..< function.variables.count - 1{
-            //print(function.variables[variable], A(number: variable))
-            duplicateString1 = duplicateString.replacingOccurrences(of: function.variables[variable], with: A(number: variable))
-            duplicateString = duplicateString1
-            //print("empty",duplicateString)
+        var count:Int = 0
+        for i in 0 ..< (function.variables.count - 1){
+            if !(A(number:i).isEmpty){
+                count += 1
+            }
         }
-        switch function.variables.count{
-        case 2: variableBTF.text = String(format: "%.2f", calculateString(expression: duplicateString))
-        case 3: variableCTF.text = String(format: "%.2f", calculateString(expression: duplicateString))
-        case 4: variableDTF.text = String(format: "%.2f", calculateString(expression: duplicateString))
-        case 5: variableETF.text = String(format: "%.2f", calculateString(expression: duplicateString))
-        case 6: variableFTF.text = String(format: "%.2f", calculateString(expression: duplicateString))
-        case 7: variableGTF.text = String(format: "%.2f", calculateString(expression: duplicateString))
-        default: return
+        
+        if !(A(number: function.variables.count - 1).isEmpty){
+            alertMessage(title: "Text Fields Error", message: "Last text field is the result. It should be empty.")
         }
-        result()
-        HistoryModel.shared.populateDatabase(Functions(functionName: function.functionName, formula: function.formula, variables: function.variables, results: results))
+        else if count == function.variables.count - 1{
+            var duplicateString:String = function.formula
+            var duplicateString1:String = ""
+            for variable in 0 ..< function.variables.count - 1{
+                //print(function.variables[variable], A(number: variable))
+                duplicateString1 = duplicateString.replacingOccurrences(of: function.variables[variable], with: A(number: variable))
+                duplicateString = duplicateString1
+                //print("empty",duplicateString)
+            }
+            switch function.variables.count{
+            case 2: variableBTF.text = String(format: "%.2f", calculateString(expression: duplicateString))
+            case 3: variableCTF.text = String(format: "%.2f", calculateString(expression: duplicateString))
+            case 4: variableDTF.text = String(format: "%.2f", calculateString(expression: duplicateString))
+            case 5: variableETF.text = String(format: "%.2f", calculateString(expression: duplicateString))
+            case 6: variableFTF.text = String(format: "%.2f", calculateString(expression: duplicateString))
+            case 7: variableGTF.text = String(format: "%.2f", calculateString(expression: duplicateString))
+            default: return
+            }
+            result()
+            HistoryModel.shared.populateDatabase(Functions(functionName: function.functionName, formula: function.formula, variables: function.variables, results: results))
+        }
+        else{
+            alertMessage(title: "Text Fields Error", message: "\(function.variables.count - count - 1) text fields empty.")
+            
+        }
     }
     
     func calcPythagorean(){

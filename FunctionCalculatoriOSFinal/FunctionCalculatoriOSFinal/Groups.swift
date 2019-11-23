@@ -24,6 +24,21 @@ class Groups{
     func numOffunctions()->Int{
         return functions.count
     }
+    
+    func populateFunctionData(function:Functions){
+        functions.append(function)
+        
+        context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        appDelegate = UIApplication.shared.delegate as? AppDelegate
+        
+        let insert = NSEntityDescription.insertNewObject(forEntityName: "FunctionEntity", into: context) as! FunctionEntity
+        
+        insert.functionName = function.functionName
+        insert.functionFormula = function.formula
+        insert.functionType = groupName
+        print(insert.functionName!, insert.functionFormula!, insert.functionType!)
+        appDelegate.saveContext()
+    }
     ///Adds a function to the Group
     func addFunction(function:Functions){
         functions.append(function)

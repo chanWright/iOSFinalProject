@@ -18,6 +18,7 @@ class AddNewFunctionViewController: UIViewController, UIPickerViewDelegate, UIPi
     @IBOutlet weak var functionType: UIPickerView!
     
     var pickerData:[String] = ["Maths","Physics","Chemistry","Miscellaneous"]
+    let dictAccordance: [Character : Character] = ["(" : ")"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +30,34 @@ class AddNewFunctionViewController: UIViewController, UIPickerViewDelegate, UIPi
         self.functionType.delegate = self
         self.functionType.dataSource = self
         // Do any additional setup after loading the view.
+    }
+    
+    func isBalanced(str: String, dictAccordance: [Character : Character]) -> Bool {
+        var balArr: [Character] = []
+        
+        let keys = dictAccordance.keys // all keys (opening characters)
+        let values = dictAccordance.values // all values (closing characters)
+        
+        for char in str.characters {
+            
+            switch char {
+            // met char from keys. (Met opening character)
+            case (let key) where keys.contains(char):
+                balArr.append(key)
+                
+            // met char from values. (Met closing character)
+            case (let value) where values.contains(char):
+                let lastOpenedCharKey = balArr.removeLast() // key  of char
+                // check last matching
+                if dictAccordance[lastOpenedCharKey] != value {
+                    return false
+                }
+            default:
+                break
+            }
+        }
+        
+        return balArr.isEmpty
     }
     
     func alertMessage(title:String, message:String){
@@ -56,26 +85,28 @@ class AddNewFunctionViewController: UIViewController, UIPickerViewDelegate, UIPi
             alertMessage(title: "Formula Error", message: "The Formula should not be a Number.")
             
         }
-        else if !(functionNameTF.text!.isEmpty), !(formulaTF.text!.isEmpty){
+        else if !(functionNameTF.text!.isEmpty), !(formulaTF.text!.isEmpty), isBalanced(str: formulaTF.text!, dictAccordance: dictAccordance){
             let testFormula = Array(Set(formulaTF.text!.components(separatedBy:CharacterSet.letters.inverted).filter{$0 != ""}))
             let testFunction = Functions(functionName: functionNameTF.text!, formula: formulaTF.text!, variables: testFormula, results: [:])
             if(!formulaTF.text!.contains("=") && testFunction.variables.count <= 7){
                 var formula = Array(Set(formulaTF.text!.components(separatedBy:CharacterSet.letters.inverted).filter{$0 != ""}))
                 formula.append("Result")
                 
-                //MARK: Function adding logic.
                 switch pickerData[functionType.selectedRow(inComponent: 0)]{
-                case "Maths": Calculator.shared[0].addFunction(function: Functions(functionName: functionNameTF.text!, formula: formulaTF.text!, variables: formula, results: [:]))
-                case "Physics": Calculator.shared[1].addFunction(function: Functions(functionName: functionNameTF.text!, formula: formulaTF.text!, variables: formula, results: [:]))
-                case "Chemistry": Calculator.shared[2].addFunction(function: Functions(functionName: functionNameTF.text!, formula: formulaTF.text!, variables: formula, results: [:]))
-                default: Calculator.shared[3].addFunction(function: Functions(functionName: functionNameTF.text!, formula: formulaTF.text!, variables: formula, results: [:]))
+                case "Maths": Calculator.shared[0].populateFunctionData(function: Functions(functionName: functionNameTF.text!, formula: formulaTF.text!, variables: formula, results: [:]))
+                case "Physics": Calculator.shared[1].populateFunctionData(function: Functions(functionName: functionNameTF.text!, formula: formulaTF.text!, variables: formula, results: [:]))
+                case "Chemistry": Calculator.shared[2].populateFunctionData(function: Functions(functionName: functionNameTF.text!, formula: formulaTF.text!, variables: formula, results: [:]))
+                default: Calculator.shared[3].populateFunctionData(function: Functions(functionName: functionNameTF.text!, formula: formulaTF.text!, variables: formula, results: [:]))
                 }
                 NotificationCenter.default.post(Notification(name: Notification.Name("Incoming")))
                 self.dismiss(animated: true, completion: nil)
             }
             else{
-                alertMessage(title: "Formula Error", message: "Not a valid funtion or has more variables than allowed")
+                alertMessage(title: "Formula Error", message: "Not a valid funtion or has more variable than allowed")
             }
+        }
+        else{
+            alertMessage(title: "Formula Error", message: "paranthesis in formula is not balanced correctly.")
         }
     }
     
