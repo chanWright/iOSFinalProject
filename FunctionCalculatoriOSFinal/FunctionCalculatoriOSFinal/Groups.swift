@@ -20,41 +20,15 @@ class Groups{
         self.groupName = groupName
         self.functions = functions
     }
-    
+    ///Returns the number of functions in a group
     func numOffunctions()->Int{
         return functions.count
     }
-    
+    ///Adds a function to the Group
     func addFunction(function:Functions){
         functions.append(function)
-        
-//        context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-//        appDelegate = UIApplication.shared.delegate as? AppDelegate
-//
-////        let historyTableRequest:NSFetchRequest<Function> = NSFetchRequest(entityName: "Function")
-////        if let historyResults = try? context.fetch(historyTableRequest) {
-////
-//        let entity = NSEntityDescription.entity(forEntityName: "FunctionEntity", in: context)
-//        let newFunction = NSManagedObject(entity: entity!, insertInto: context)
-//        newFunction.setValue(function.functionName, forKey: "functionName")
-//        newFunction.setValue(function.formula, forKey: "functionFormula")
-//        do {
-//           try context.save()
-//          } catch {
-//           print("Failed saving")
-//        }
     }
-    
-//    func fetchFunctions(){
-//        let request:NSFetchRequest<FunctionEntity> = NSFetchRequest(entityName: "FunctionEntity")
-//        if let Functions1 = try? context.fetch(request) {
-//            for i in Functions1{
-//                print(i.functionName!,i.functionFormula!)
-//            }
-//
-//        }
-//    }
-    
+    ///deletes a function from the Group
     func deleteFunction(at index:Int){
         functions.remove(at: index)
     }

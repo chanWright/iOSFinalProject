@@ -13,7 +13,9 @@ class CalculationsViewController: UIViewController {
     var function:Functions!
     
     var results : [String : Double] = [:]
-    
+    //These are always present in the VC, but some (if not all) are hidden by default.
+    //They are procedurally un-hidden based on how many variables are needed, up to a maximum
+    //of 8.
     @IBOutlet weak var variableATF: UITextField!
     @IBOutlet weak var variableBTF: UITextField!
     @IBOutlet weak var variableCTF: UITextField!
@@ -32,7 +34,7 @@ class CalculationsViewController: UIViewController {
     @IBOutlet weak var varFLBL: UILabel!
     @IBOutlet weak var varGLBL: UILabel!
     @IBOutlet weak var varHLBL: UILabel!
-    
+    //Empties all variable text fields.
     @IBAction func reset(_ sender: UIButton) {
         variableATF.text = ""
         variableBTF.text = ""
@@ -44,7 +46,7 @@ class CalculationsViewController: UIViewController {
         variableGTF.text = ""
         variableHTF.text = ""
     }
-    
+    //Makes sure you have correct input.
     @IBAction func calculateButton(_ sender: UIButton) {
         if variableATF.text!.isEmpty, variableBTF.text!.isEmpty, variableCTF.text!.isEmpty{
             alertMessage(title: "Text Fields Shouldn't be Empty", message: "You Must only fill any two fields")

@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 import UIKit
 
-
+///HistoryModel is in charge of handling all previously ran functions. It stores Functions,
 class HistoryModel{
     var context:NSManagedObjectContext!
     var appDelegate:AppDelegate!
@@ -23,7 +23,7 @@ class HistoryModel{
         self.history = history
         self.ID = ID
     }
-    
+    ///returns the number of Functions previously calculated.
     func numOfHistory()->Int{
         return history.count
     }
@@ -51,7 +51,7 @@ class HistoryModel{
                 variableItem.id = ID
                 variableItem.variable = variablePair.key
                 variableItem.variableValue = variablePair.value
-                print(variableItem.variable,variableItem.variableValue)
+//                print(variableItem.variable,variableItem.variableValue)
                 results[variableItem.variable!] = variableItem.variableValue
                 historyItem.addToValues(variableItem)
                 appDelegate.saveContext()
@@ -60,10 +60,12 @@ class HistoryModel{
         }
     }
     
+    ///Adds a function to history.
     func addHistory(_ history:Functions){
         self.history.append(history)
     }
     
+    ///deletes a specific Function from history. Takes in an index position in the history array.
     func deleteOneHistory(at index:Int){
         history.remove(at: index)
         context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -85,7 +87,7 @@ class HistoryModel{
         }
         
     }
-    
+    ///Deletes all history from the local history storage and the CoreData database. 
     func deleteFullHistory(){
         history.removeAll()
         context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext

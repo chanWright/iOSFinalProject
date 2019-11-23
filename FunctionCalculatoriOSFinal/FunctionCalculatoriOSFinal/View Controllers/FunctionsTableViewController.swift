@@ -23,18 +23,18 @@ class FunctionsTableViewController: UITableViewController {
         super.viewDidLoad()
         navigationItem.title = "Functions"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(add))
-        NotificationCenter.default.addObserver(self, selector: #selector(notifier), name: NSNotification.Name(rawValue:"Incoming"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refresh), name: NSNotification.Name(rawValue:"Incoming"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
     }
-    
+    //This was functionality intended if we had time. We did not.
     @objc func edit(){
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue:"Fuctionality not added yet."), object: nil)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue:"Fuctionality not supported."), object: nil)
     }
-    
-    @objc func notifier(){
+    ///reloads the tableView data.
+    @objc func refresh(){
         self.tableView.reloadData()
     }
     
@@ -47,13 +47,11 @@ class FunctionsTableViewController: UITableViewController {
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return Calculator.shared.numberOfGroups()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        //MARK: -Dummy Data.
+        //returns number of rows.
         return Calculator.shared[section].numOffunctions()
     }
     

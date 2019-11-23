@@ -6,6 +6,7 @@
 //  Copyright © 2019 Wright,Chandler A. All rights reserved.
 //
 
+//This view controller handles adding new function to the Calculator class.
 import UIKit
 
 class AddNewFunctionViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
@@ -40,7 +41,7 @@ class AddNewFunctionViewController: UIViewController, UIPickerViewDelegate, UIPi
     @objc func cancel(){
         self.dismiss(animated: true, completion: nil)
     }
-    
+    //Handles and processes all custom functions, then calls the addFunction method of Calculator
     @objc func add(){
         if functionNameTF.text!.isEmpty, formulaTF.text!.isEmpty{
             alertMessage(title: "Empty Fields", message: "Both the Text Fields are empty.")
@@ -62,6 +63,7 @@ class AddNewFunctionViewController: UIViewController, UIPickerViewDelegate, UIPi
                 var formula = Array(Set(formulaTF.text!.components(separatedBy:CharacterSet.letters.inverted).filter{$0 != ""}))
                 formula.append("Result")
                 
+                //MARK: Function adding logic.
                 switch pickerData[functionType.selectedRow(inComponent: 0)]{
                 case "Maths": Calculator.shared[0].addFunction(function: Functions(functionName: functionNameTF.text!, formula: formulaTF.text!, variables: formula, results: [:]))
                 case "Physics": Calculator.shared[1].addFunction(function: Functions(functionName: functionNameTF.text!, formula: formulaTF.text!, variables: formula, results: [:]))
@@ -72,7 +74,7 @@ class AddNewFunctionViewController: UIViewController, UIPickerViewDelegate, UIPi
                 self.dismiss(animated: true, completion: nil)
             }
             else{
-                alertMessage(title: "Formula Error", message: "Not a valid funtion or has more variable than allowed")
+                alertMessage(title: "Formula Error", message: "Not a valid funtion or has more variables than allowed")
             }
         }
     }

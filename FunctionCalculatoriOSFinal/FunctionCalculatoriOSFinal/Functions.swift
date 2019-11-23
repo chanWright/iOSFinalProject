@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+///The Functions struct is the data structure used for defining a calculated function. It consists of a function name, formula, variables, and the results of the function. This is used in the HistoryModel class.
 struct Functions{
     var functionName:String
     var formula:String
